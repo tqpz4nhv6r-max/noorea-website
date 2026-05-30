@@ -144,6 +144,35 @@ section{padding:clamp(5rem,12vw,10rem) 5%}
 .service-arrow{position:absolute;bottom:2rem;right:2rem;width:32px;height:32px;border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;transition:all 0.3s;opacity:0;transform:translateX(-8px);color:var(--gold)}
 .service-card:hover .service-arrow{opacity:1;transform:translateX(0)}
 
+/* Price Menu Section */
+#price-menu{background:var(--bg2)}
+.price-menu-header{margin-bottom:4rem}
+.price-menu-container{max-width:900px;margin:0 auto}
+.price-category{border-bottom:1px solid var(--glass-border);margin-bottom:0;transition:all 0.3s}
+.price-category:first-child{border-top:1px solid var(--glass-border)}
+.price-category summary{display:flex;align-items:center;justify-content:space-between;padding:1.6rem 0.5rem;cursor:none;font-family:var(--serif);font-size:1.4rem;font-weight:300;letter-spacing:0.06em;color:var(--dark);list-style:none;transition:color 0.3s;outline:none}
+.price-category summary::-webkit-details-marker{display:none}
+.price-category summary::after{content:'+';font-family:var(--sans);font-size:1.3rem;font-weight:200;color:var(--gold);transition:transform 0.35s cubic-bezier(0.76,0,0.24,1);flex-shrink:0;margin-left:1rem}
+.price-category[open] summary{color:var(--gold)}
+.price-category[open] summary::after{transform:rotate(45deg)}
+.price-category summary:hover{color:var(--gold)}
+.price-category-content{padding:0 0.5rem 2rem;animation:accordionReveal 0.4s ease}
+@keyframes accordionReveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.price-table{width:100%;border-collapse:collapse;font-size:0.82rem;margin:0.8rem 0 1.5rem}
+.price-table th{font-family:var(--sans);font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);padding:0.7rem 0.6rem;text-align:left;font-weight:400;border-bottom:1px solid var(--gold-pale)}
+.price-table th:last-child,.price-table th:nth-last-child(n+2){text-align:right}
+.price-table td{padding:0.55rem 0.6rem;color:var(--text);border-bottom:1px solid rgba(184,137,42,0.08);font-weight:300}
+.price-table td:last-child,.price-table td:nth-last-child(n+2){text-align:right;color:var(--gold);font-weight:400;letter-spacing:0.05em}
+.price-table tr:hover td{background:rgba(184,137,42,0.03)}
+.price-table .service-label{color:var(--text);font-weight:300;letter-spacing:0.03em}
+.price-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.55rem 0.6rem;border-bottom:1px solid rgba(184,137,42,0.08);font-size:0.82rem;gap:1rem}
+.price-row .price-row-label{color:var(--text);font-weight:300;flex:1}
+.price-row .price-row-value{color:var(--gold);font-weight:400;letter-spacing:0.05em;white-space:nowrap;flex-shrink:0}
+.price-row .price-row-note{font-size:0.7rem;color:var(--text-muted);font-weight:200;letter-spacing:0.04em}
+.price-subhead{font-family:var(--sans);font-size:0.62rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold-bright);margin:1.8rem 0 0.8rem 0.5rem;font-weight:400}
+.price-note{font-size:0.7rem;color:var(--text-muted);font-weight:200;letter-spacing:0.04em;margin-top:0.5rem;padding-left:0.5rem}
+.price-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0.5rem 0}
+
 /* Glam Pass */
 #glampass{background:linear-gradient(180deg,var(--bg3) 0%,var(--bg) 100%);text-align:center}
 .glam-header{max-width:620px;margin:0 auto 5rem}
@@ -309,6 +338,11 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
   .footer-grid{grid-template-columns:1fr}
   .services-header{flex-direction:column;align-items:flex-start}
   .vip-perks{gap:1.5rem}
+  .price-category summary{font-size:1.15rem;padding:1.2rem 0.3rem}
+  .price-table{font-size:0.72rem}
+  .price-table th{font-size:0.55rem;letter-spacing:0.2em;padding:0.5rem 0.3rem}
+  .price-table td{padding:0.45rem 0.3rem}
+  .price-row{font-size:0.74rem;padding:0.45rem 0.3rem}
 }
 @media(max-width:480px){
   .hero-btns{flex-direction:column;align-items:center}
@@ -316,6 +350,8 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
   .about-stats{grid-template-columns:1fr 1fr}
   .time-slots{grid-template-columns:repeat(2,1fr)}
   .submit-row{flex-direction:column}
+  .price-table-wrap{overflow-x:auto}
+  .price-table{min-width:380px}
 }
 </style>
 </head>
@@ -327,622 +363,938 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
 
 <!-- Loader -->
 <div id="loader">
-  <div class="loader-logo">NOOREA</div>
-  <div class="loader-line"></div>
-  <div class="loader-sub">Home Salon & Wellness</div>
+    <div class="loader-logo">NOOREA</div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">Home Salon & Wellness</div>
 </div>
 
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#hero">Home</a>
-  <a href="#about">About</a>
-  <a href="#services">Services</a>
-  <a href="#glampass">Glam Pass</a>
-  <a href="#booking">Book Now</a>
-  <a href="#gallery">Gallery</a>
-  <a href="#contact">Contact</a>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#price-menu">Menu</a>
+    <a href="#glampass">Glam Pass</a>
+    <a href="#booking">Book Now</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
 </div>
 
 <!-- Navigation -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo">NOOREA</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#glampass">Glam Pass</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#blog">Journal</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="#booking" class="nav-cta">Book Now</a>
-  <button class="nav-hamburger" id="hamburger" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+    <a href="#hero" class="nav-logo">NOOREA</a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#price-menu">Menu</a></li>
+        <li><a href="#glampass">Glam Pass</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#blog">Journal</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#booking" class="nav-cta">Book Now</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
 
 <!-- Hero -->
 <section id="hero">
-  <canvas id="hero-canvas"></canvas>
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <span class="hero-eyebrow">Dubai's Premier Home Salon Experience</span>
-    <h1 class="hero-title">Where <em>Beauty</em><br>Meets Sanctuary</h1>
-    <p class="hero-sub">Luxury salon & wellness services, delivered to your doorstep. Every treatment, a ritual.</p>
-    <div class="hero-btns">
-      <a href="#booking" class="btn-primary">Reserve Your Session</a>
-      <a href="#services" class="btn-ghost">Explore Services</a>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Dubai's Premier Home Salon Experience</span>
+        <h1 class="hero-title">Where <em>Beauty</em><br>Meets Sanctuary</h1>
+        <p class="hero-sub">Luxury salon & wellness services, delivered to your doorstep. Every treatment, a ritual.</p>
+        <div class="hero-btns">
+            <a href="#booking" class="btn-primary">Reserve Your Session</a>
+            <a href="#services" class="btn-ghost">Explore Services</a>
+        </div>
     </div>
-  </div>
-  <div class="hero-scroll">
-    <span>Scroll to explore</span>
-    <div class="scroll-line"></div>
-  </div>
+    <div class="hero-scroll">
+        <span>Scroll to explore</span>
+        <div class="scroll-line"></div>
+    </div>
 </section>
 
 <!-- Marquee -->
 <div class="marquee-section">
-  <div class="marquee-track" id="marqueeTrack">
-    <span class="marquee-item"><span class="marquee-dot"></span>Hair Styling</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Nail Artistry</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Luxury Facials</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Massage Therapy</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Bridal Packages</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Wellness Rituals</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Waxing & Threading</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Blow Dry Bar</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Hair Styling</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Nail Artistry</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Luxury Facials</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Massage Therapy</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Bridal Packages</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Wellness Rituals</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Waxing & Threading</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Blow Dry Bar</span>
-  </div>
+    <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-item"><span class="marquee-dot"></span>Hair Styling</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Nail Artistry</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Luxury Facials</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Massage Therapy</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Bridal Packages</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Wellness Rituals</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Waxing & Threading</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Blow Dry Bar</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Hair Styling</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Nail Artistry</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Luxury Facials</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Massage Therapy</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Bridal Packages</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Wellness Rituals</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Waxing & Threading</span>
+        <span class="marquee-item"><span class="marquee-dot"></span>Blow Dry Bar</span>
+    </div>
 </div>
 
 <!-- About -->
 <section id="about">
-  <div class="about-image-grid reveal">
-    <div class="about-img-box">
-      <div class="about-img-inner">The Art of Beauty</div>
+    <div class="about-image-grid reveal">
+        <div class="about-img-box">
+            <div class="about-img-inner">The Art of Beauty</div>
+        </div>
+        <div class="about-img-box" style="margin-top:0;margin-bottom:4rem">
+            <div class="about-img-inner">Pure Luxury</div>
+        </div>
+        <div class="about-badge">
+            <strong>500+</strong>
+            <span>Happy Clients</span>
+        </div>
     </div>
-    <div class="about-img-box" style="margin-top:0;margin-bottom:4rem">
-      <div class="about-img-inner">Pure Luxury</div>
+    <div>
+        <span class="section-eyebrow reveal">Our Story</span>
+        <h2 class="section-title reveal reveal-delay-1">Beauty, <em>Elevated</em><br>to an Art Form</h2>
+        <p class="section-sub reveal reveal-delay-2">NOOREA was born from a simple belief: every woman deserves world-class beauty treatments in the comfort of her own sanctuary. We bring Dubai's finest salon experience to your home — no commute, no waiting rooms, just pure, personalised luxury.</p>
+        <p class="section-sub reveal reveal-delay-3" style="margin-top:1.2rem">Our curated team of certified beauty artists are trained in the latest techniques from London, Paris, and New York — ensuring every visit feels like an indulgence.</p>
+        <div class="about-stats">
+            <div class="stat-box reveal reveal-delay-1">
+                <div class="stat-num">5★</div>
+                <div class="stat-label">Average Rating</div>
+            </div>
+            <div class="stat-box reveal reveal-delay-2">
+                <div class="stat-num">3+</div>
+                <div class="stat-label">Years in Dubai</div>
+            </div>
+            <div class="stat-box reveal reveal-delay-3">
+                <div class="stat-num">20+</div>
+                <div class="stat-label">Treatments Offered</div>
+            </div>
+            <div class="stat-box reveal reveal-delay-4">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Premium Products</div>
+            </div>
+        </div>
     </div>
-    <div class="about-badge">
-      <strong>500+</strong>
-      <span>Happy Clients</span>
-    </div>
-  </div>
-  <div>
-    <span class="section-eyebrow reveal">Our Story</span>
-    <h2 class="section-title reveal reveal-delay-1">Beauty, <em>Elevated</em><br>to an Art Form</h2>
-    <p class="section-sub reveal reveal-delay-2">NOOREA was born from a simple belief: every woman deserves world-class beauty treatments in the comfort of her own sanctuary. We bring Dubai's finest salon experience to your home — no commute, no waiting rooms, just pure, personalised luxury.</p>
-    <p class="section-sub reveal reveal-delay-3" style="margin-top:1.2rem">Our curated team of certified beauty artists are trained in the latest techniques from London, Paris, and New York — ensuring every visit feels like an indulgence.</p>
-    <div class="about-stats">
-      <div class="stat-box reveal reveal-delay-1">
-        <div class="stat-num">5★</div>
-        <div class="stat-label">Average Rating</div>
-      </div>
-      <div class="stat-box reveal reveal-delay-2">
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years in Dubai</div>
-      </div>
-      <div class="stat-box reveal reveal-delay-3">
-        <div class="stat-num">20+</div>
-        <div class="stat-label">Treatments Offered</div>
-      </div>
-      <div class="stat-box reveal reveal-delay-4">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Premium Products</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- Services -->
 <section id="services">
-  <div class="services-header">
-    <div>
-      <span class="section-eyebrow reveal">Our Offerings</span>
-      <h2 class="section-title reveal reveal-delay-1">Luxury <em>Services</em><br>at Your Door</h2>
+    <div class="services-header">
+        <div>
+            <span class="section-eyebrow reveal">Our Offerings</span>
+            <h2 class="section-title reveal reveal-delay-1">Luxury <em>Services</em><br>at Your Door</h2>
+        </div>
+        <a href="#booking" class="btn-ghost reveal">Book a Service</a>
     </div>
-    <a href="#booking" class="btn-ghost reveal">Book a Service</a>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-num">01</div>
-      <div class="service-name">Hair Styling</div>
-      <p class="service-desc">From sleek blowouts to editorial styles — our artists craft looks tailored to your vision using only premium products.</p>
-      <div class="service-price">From AED 150</div>
-      <div class="service-arrow">→</div>
+    <div class="services-grid">
+        <div class="service-card reveal">
+            <div class="service-num">01</div>
+            <div class="service-name">Hair Styling</div>
+            <p class="service-desc">From sleek blowouts to editorial styles — our artists craft looks tailored to your vision using only premium products.</p>
+            <div class="service-price">From AED 150</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+            <div class="service-num">02</div>
+            <div class="service-name">Blow Dry Bar</div>
+            <p class="service-desc">The perfect blow dry, every time. Voluminous, sleek, or textured — a transformative experience for your hair.</p>
+            <div class="service-price">From AED 100</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+            <div class="service-num">03</div>
+            <div class="service-name">Nail Artistry</div>
+            <p class="service-desc">Luxury manicures and nail art using the finest gel and chrome polishes. Your nails, elevated to gallery-worthy.</p>
+            <div class="service-price">From AED 80</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-num">04</div>
+            <div class="service-name">Manicure & Pedicure</div>
+            <p class="service-desc">A ritual for your hands and feet. Exfoliation, hydration, and flawless color in a relaxing home setting.</p>
+            <div class="service-price">From AED 120</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+            <div class="service-num">05</div>
+            <div class="service-name">Massage Therapy</div>
+            <p class="service-desc">Swedish, deep tissue, or aromatherapy — our certified therapists bring spa-quality relaxation to your home.</p>
+            <div class="service-price">From AED 200</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+            <div class="service-num">06</div>
+            <div class="service-name">Luxury Facials</div>
+            <p class="service-desc">Skin-transforming facials using medical-grade products tailored to your skin type. Glow, nourish, restore.</p>
+            <div class="service-price">From AED 250</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-num">07</div>
+            <div class="service-name">Waxing</div>
+            <p class="service-desc">Smooth, precise waxing using the finest hot and strip wax for a comfortable, long-lasting result.</p>
+            <div class="service-price">From AED 60</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+            <div class="service-num">08</div>
+            <div class="service-name">Threading & Brows</div>
+            <p class="service-desc">Expert brow shaping and threading to frame your face beautifully. Precision is our promise.</p>
+            <div class="service-price">From AED 40</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+            <div class="service-num">09</div>
+            <div class="service-name">Bridal Packages</div>
+            <p class="service-desc">Your most beautiful day, perfected. Complete bridal beauty packages designed around your unique style.</p>
+            <div class="service-price">From AED 800</div>
+            <div class="service-arrow">→</div>
+        </div>
+        <div class="service-card reveal">
+            <div class="service-num">10</div>
+            <div class="service-name">Wellness Treatments</div>
+            <p class="service-desc">Holistic wellness rituals — from detox body wraps to energy-balancing treatments for mind and body.</p>
+            <div class="service-price">From AED 300</div>
+            <div class="service-arrow">→</div>
+        </div>
     </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">02</div>
-      <div class="service-name">Blow Dry Bar</div>
-      <p class="service-desc">The perfect blow dry, every time. Voluminous, sleek, or textured — a transformative experience for your hair.</p>
-      <div class="service-price">From AED 100</div>
-      <div class="service-arrow">→</div>
+</section>
+
+<!-- Price Menu -->
+<section id="price-menu">
+    <div class="price-menu-header">
+        <span class="section-eyebrow reveal">Full Menu</span>
+        <h2 class="section-title reveal reveal-delay-1">Our <em>Price</em> Guide</h2>
+        <p class="section-sub reveal reveal-delay-2">Complete pricing for all our luxury home salon services. Prices in AED.</p>
     </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-num">03</div>
-      <div class="service-name">Nail Artistry</div>
-      <p class="service-desc">Luxury manicures and nail art using the finest gel and chrome polishes. Your nails, elevated to gallery-worthy.</p>
-      <div class="service-price">From AED 80</div>
-      <div class="service-arrow">→</div>
+    <div class="price-menu-container">
+
+        <!-- Hair Services: Haircut & Styling -->
+        <details class="price-category reveal">
+            <summary>Hair Services — Haircut & Styling</summary>
+            <div class="price-category-content">
+                <div class="price-table-wrap">
+                    <table class="price-table">
+                        <thead>
+                            <tr><th>Service</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="service-label">Wash with Blow Dry</td><td>110</td><td>130</td><td>160</td><td>200</td><td>240</td></tr>
+                            <tr><td class="service-label">Wash with Paddle Dry</td><td>190</td><td>160</td><td>180</td><td>220</td><td>290</td></tr>
+                            <tr><td class="service-label">Blowdry with Extension</td><td>130</td><td>200</td><td>270</td><td>220</td><td>—</td></tr>
+                            <tr><td class="service-label">Restyle with Blowdry</td><td>110</td><td>65</td><td>85</td><td>75</td><td>—</td></tr>
+                            <tr><td class="service-label">Trim with Blowdry</td><td>50</td><td>160</td><td>240</td><td>200</td><td>—</td></tr>
+                            <tr><td class="service-label">Trim without Blowdry</td><td>55</td><td>140</td><td>210</td><td>170</td><td>—</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="price-row"><span class="price-row-label">Fringe Cut</span><span class="price-row-value">AED 130</span></div>
+                <div class="price-row"><span class="price-row-label">Ironing / Curling</span><span class="price-row-value">AED 160</span></div>
+                <div class="price-row"><span class="price-row-label">Upstyle</span><span class="price-row-value">AED 200</span></div>
+            </div>
+        </details>
+
+        <!-- Hair Color -->
+        <details class="price-category reveal">
+            <summary>Hair Color</summary>
+            <div class="price-category-content">
+                <div class="price-table-wrap">
+                    <table class="price-table">
+                        <thead>
+                            <tr><th>Service</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="service-label">Roots Color</td><td>200</td><td>520</td><td>620</td><td>720</td><td>820</td></tr>
+                            <tr><td class="service-label">Organic Roots Color</td><td>230</td><td>550</td><td>650</td><td>750</td><td>850</td></tr>
+                            <tr><td class="service-label">Crazy Color Ombre</td><td>420</td><td>400</td><td>500</td><td>600</td><td>700</td></tr>
+                            <tr><td class="service-label">Full Head Highlights</td><td>450</td><td>720</td><td>820</td><td>920</td><td>1020</td></tr>
+                            <tr><td class="service-label">Full Color</td><td>300</td><td>600</td><td>700</td><td>800</td><td>900</td></tr>
+                            <tr><td class="service-label">Ombre / Balayage</td><td>620</td><td>450</td><td>550</td><td>650</td><td>750</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="price-row"><span class="price-row-label">Blonde Highlights</span><span class="price-row-value">AED 500</span><span class="price-row-note">(S)</span></div>
+                <div class="price-row"><span class="price-row-label">Organic Full Color</span><span class="price-row-value">AED 350</span><span class="price-row-note">(S)</span></div>
+            </div>
+        </details>
+
+        <!-- Nail Extensions -->
+        <details class="price-category reveal">
+            <summary>Nails — Nail Extensions</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Natural Set Gel / Acrylic</span><span class="price-row-value">AED 300</span></div>
+                <div class="price-row"><span class="price-row-label">Natural Overlay Gel / Acrylic</span><span class="price-row-value">AED 280</span></div>
+                <div class="price-row"><span class="price-row-label">Natural Refill Gel / Acrylic</span><span class="price-row-value">AED 230</span></div>
+                <div class="price-row"><span class="price-row-label">Extension Removal</span><span class="price-row-value">AED 100</span></div>
+                <div class="price-row"><span class="price-row-label">Natural Overlay Nail Repair</span><span class="price-row-value">AED 37</span></div>
+                <div class="price-row"><span class="price-row-label">Extension Nail Repair</span><span class="price-row-value">AED 40</span></div>
+            </div>
+        </details>
+
+        <!-- Manicure & Pedicure -->
+        <details class="price-category reveal">
+            <summary>Nails — Manicure & Pedicure</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Russian Manicure</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Pedicure</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Spa Manicure</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Spa Pedicure</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Gelish Manicure</span><span class="price-row-value">AED 137</span></div>
+                <div class="price-row"><span class="price-row-label">Gelish Pedicure</span><span class="price-row-value">AED 147</span></div>
+                <div class="price-row"><span class="price-row-label">Classic Manicure</span><span class="price-row-value">AED 74</span></div>
+                <div class="price-row"><span class="price-row-label">Classic Pedicure</span><span class="price-row-value">AED 84</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Gelish Manicure</span><span class="price-row-value">AED 200</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Gelish Pedicure</span><span class="price-row-value">AED 210</span></div>
+                <div class="price-row"><span class="price-row-label">Gelish Polish Hands</span><span class="price-row-value">AED 94</span></div>
+                <div class="price-row"><span class="price-row-label">Gelish Polish Feet</span><span class="price-row-value">AED 104</span></div>
+                <div class="price-row"><span class="price-row-label">Gelish Removal Hands / Feet</span><span class="price-row-value">AED 45</span></div>
+                <div class="price-row"><span class="price-row-label">Ingrown Removal</span><span class="price-row-value">AED 50</span></div>
+                <div class="price-row"><span class="price-row-label">Polish Change Hands</span><span class="price-row-value">AED 140</span></div>
+                <div class="price-row"><span class="price-row-label">Polish Change Feet</span><span class="price-row-value">AED 160</span></div>
+            </div>
+        </details>
+
+        <!-- Nail Art -->
+        <details class="price-category reveal">
+            <summary>Nails — Nail Art</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Classic French</span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Extension French</span><span class="price-row-value">AED 40</span></div>
+                <div class="price-row"><span class="price-row-label">Cat Eye</span><span class="price-row-value">AED 90</span></div>
+                <div class="price-row"><span class="price-row-label">Chrome</span><span class="price-row-value">AED 90</span></div>
+                <div class="price-row"><span class="price-row-label">Ombre</span><span class="price-row-value">AED 90</span></div>
+                <div class="price-row"><span class="price-row-label">Nail Art</span><span class="price-row-value">AED 20 / nail</span></div>
+                <div class="price-row"><span class="price-row-label">Glitter</span><span class="price-row-value">AED 10 / nail</span></div>
+                <div class="price-row"><span class="price-row-label">Stones</span><span class="price-row-value">AED 10 / nail</span></div>
+                <div class="price-row"><span class="price-row-label">Sticker</span><span class="price-row-value">AED 10 / nail</span></div>
+            </div>
+        </details>
+
+        <!-- Nail Add-ons -->
+        <details class="price-category reveal">
+            <summary>Nails — Add-ons</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Callus Treatment</span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Scrub Hands</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Scrub Feet</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Paraffin Hands</span><span class="price-row-value">AED 90</span></div>
+                <div class="price-row"><span class="price-row-label">Paraffin Feet</span><span class="price-row-value">AED 100</span></div>
+                <div class="price-row"><span class="price-row-label">Cut, Buff & Shine</span><span class="price-row-value">AED 40</span></div>
+                <div class="price-row"><span class="price-row-label">Jelly Spa Hands / Feet</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Footlogix</span><span class="price-row-value">AED 150</span></div>
+            </div>
+        </details>
+
+        <!-- Facials -->
+        <details class="price-category reveal">
+            <summary>Facials</summary>
+            <div class="price-category-content">
+                <div class="price-subhead">AED 250 — 40 mins</div>
+                <div class="price-row"><span class="price-row-label">Cleanup</span><span class="price-row-value">AED 250</span></div>
+                <div class="price-subhead">AED 350 — 60 mins</div>
+                <div class="price-row"><span class="price-row-label">Cleansing Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-row"><span class="price-row-label">Vitamin C Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-row"><span class="price-row-label">Hydrating Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-row"><span class="price-row-label">Sensitive Skin Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-row"><span class="price-row-label">Fresh Fruit Organic Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-row"><span class="price-row-label">Whitening Facial</span><span class="price-row-value">AED 350</span></div>
+                <div class="price-subhead">AED 450 — 75 mins</div>
+                <div class="price-row"><span class="price-row-label">Classic Hydradermie</span><span class="price-row-value">AED 450</span></div>
+                <div class="price-row"><span class="price-row-label">Hydradermie Lightening</span><span class="price-row-value">AED 450</span></div>
+                <div class="price-row"><span class="price-row-label">Hydradermie Plus</span><span class="price-row-value">AED 450</span></div>
+                <div class="price-row"><span class="price-row-label">Anti Aging Facial</span><span class="price-row-value">AED 450</span></div>
+                <div class="price-subhead">Premium — 75 mins</div>
+                <div class="price-row"><span class="price-row-label">Hydradermie Plus & Lift Deluxe</span><span class="price-row-value">AED 500</span></div>
+                <div class="price-row"><span class="price-row-label">BB Glow Facial</span><span class="price-row-value">AED 500</span></div>
+            </div>
+        </details>
+
+        <!-- Body Treatments & Massage -->
+        <details class="price-category reveal">
+            <summary>Body Treatments & Massage</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Neck & Shoulder Massage <span class="price-row-note">(Chair, 30 min)</span></span><span class="price-row-value">AED 105</span></div>
+                <div class="price-row"><span class="price-row-label">Foot Massage <span class="price-row-note">(Chair, 30 min)</span></span><span class="price-row-value">AED 105</span></div>
+                <div class="price-row"><span class="price-row-label">Neck & Shoulder Massage <span class="price-row-note">(Room, 30 min)</span></span><span class="price-row-value">AED 120</span></div>
+                <div class="price-row"><span class="price-row-label">Foot Massage <span class="price-row-note">(Room, 45 min)</span></span><span class="price-row-value">AED 120</span></div>
+                <div class="price-row"><span class="price-row-label">Aroma Therapy Massage <span class="price-row-note">(45 min)</span></span><span class="price-row-value">AED 250</span></div>
+                <div class="price-row"><span class="price-row-label">Deep Tissue Massage <span class="price-row-note">(30 min)</span></span><span class="price-row-value">AED 250</span></div>
+                <div class="price-row"><span class="price-row-label">Slimming / Cellulite Massage <span class="price-row-note">(60 min)</span></span><span class="price-row-value">AED 250</span></div>
+                <div class="price-row"><span class="price-row-label">Thai Massage <span class="price-row-note">(Dry, 60 min)</span></span><span class="price-row-value">AED 325</span></div>
+                <div class="price-row"><span class="price-row-label">Full Body Scrub <span class="price-row-note">(60 min)</span></span><span class="price-row-value">AED 400</span></div>
+                <div class="price-row"><span class="price-row-label">Full Body Wrap <span class="price-row-note">(60 min)</span></span><span class="price-row-value">AED 400</span></div>
+                <div class="price-row"><span class="price-row-label">Cupping Therapy <span class="price-row-note">(60 min)</span></span><span class="price-row-value">AED 425</span></div>
+                <div class="price-row"><span class="price-row-label">Swedish Massage <span class="price-row-note">(30 min)</span></span><span class="price-row-value">AED 400</span></div>
+            </div>
+        </details>
+
+        <!-- Eyebrows & Threading -->
+        <details class="price-category reveal">
+            <summary>Eyebrows, Threading & Lamination</summary>
+            <div class="price-category-content">
+                <div class="price-subhead">Threading</div>
+                <div class="price-row"><span class="price-row-label">Eyebrow Trimming</span><span class="price-row-value">AED 40</span></div>
+                <div class="price-row"><span class="price-row-label">Eyebrow Mousse</span><span class="price-row-value">AED 40</span></div>
+                <div class="price-row"><span class="price-row-label">Upper Lips</span><span class="price-row-value">AED 30</span></div>
+                <div class="price-row"><span class="price-row-label">Forehead Threading</span><span class="price-row-value">AED 30</span></div>
+                <div class="price-row"><span class="price-row-label">Cheek / Chin</span><span class="price-row-value">AED 30</span></div>
+                <div class="price-row"><span class="price-row-label">Sideburn</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Neck</span><span class="price-row-value">AED 30</span></div>
+                <div class="price-row"><span class="price-row-label">Full Face</span><span class="price-row-value">AED 110</span></div>
+                <div class="price-subhead">Lamination</div>
+                <div class="price-row"><span class="price-row-label">Brow Lamination</span><span class="price-row-value">AED 250</span></div>
+                <div class="price-row"><span class="price-row-label">Lash Lamination</span><span class="price-row-value">AED 200</span></div>
+            </div>
+        </details>
+
+        <!-- Eyelashes & Tinting -->
+        <details class="price-category reveal">
+            <summary>Eyelashes & Tinting</summary>
+            <div class="price-category-content">
+                <div class="price-subhead">Full Set</div>
+                <div class="price-row"><span class="price-row-label">Natural Lashes</span><span class="price-row-value">AED 400</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Lashes</span><span class="price-row-value">AED 500</span></div>
+                <div class="price-subhead">Refill</div>
+                <div class="price-row"><span class="price-row-label">Natural Lashes <span class="price-row-note">(2 weeks)</span></span><span class="price-row-value">AED 210</span></div>
+                <div class="price-row"><span class="price-row-label">Natural Lashes <span class="price-row-note">(3 weeks)</span></span><span class="price-row-value">AED 310</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Lashes <span class="price-row-note">(2 weeks)</span></span><span class="price-row-value">AED 310</span></div>
+                <div class="price-row"><span class="price-row-label">Russian Lashes <span class="price-row-note">(3 weeks)</span></span><span class="price-row-value">AED 410</span></div>
+                <div class="price-subhead">Other</div>
+                <div class="price-row"><span class="price-row-label">Lash Removal</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Brow Tinting</span><span class="price-row-value">AED 65</span></div>
+                <div class="price-row"><span class="price-row-label">Lash Tinting</span><span class="price-row-value">AED 65</span></div>
+            </div>
+        </details>
+
+        <!-- Bleaching -->
+        <details class="price-category reveal">
+            <summary>Bleaching</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Upper / Lower Lip</span><span class="price-row-value">AED 25</span></div>
+                <div class="price-row"><span class="price-row-label">Eyebrows</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Full Face</span><span class="price-row-value">AED 110</span></div>
+                <div class="price-row"><span class="price-row-label">Full Face with Neck</span><span class="price-row-value">AED 150</span></div>
+                <div class="price-row"><span class="price-row-label">Underarms</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Forehead / Cheek / Chin</span><span class="price-row-value">AED 30</span></div>
+                <div class="price-row"><span class="price-row-label">Full Arms</span><span class="price-row-value">AED 100</span></div>
+                <div class="price-row"><span class="price-row-label">Half Arms</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Full Legs</span><span class="price-row-value">AED 120</span></div>
+                <div class="price-row"><span class="price-row-label">Half Lower Legs</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Half Upper Legs</span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Full Back / Front</span><span class="price-row-value">AED 120</span></div>
+                <div class="price-row"><span class="price-row-label">Half Front / Back</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Full Body</span><span class="price-row-value">AED 350</span></div>
+            </div>
+        </details>
+
+        <!-- Waxing -->
+        <details class="price-category reveal">
+            <summary>Waxing</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Underarms Hard Wax</span><span class="price-row-value">AED 150</span></div>
+                <div class="price-row"><span class="price-row-label">Full Arms</span><span class="price-row-value">AED 360</span></div>
+                <div class="price-row"><span class="price-row-label">Half Arms</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Full Legs</span><span class="price-row-value">AED 475</span></div>
+                <div class="price-row"><span class="price-row-label">Brazilian Hard Wax</span><span class="price-row-value">AED 60</span></div>
+                <div class="price-row"><span class="price-row-label">Bikini Line Hard Wax</span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Full Body with Bikini Line</span><span class="price-row-value">AED 90</span></div>
+                <div class="price-row"><span class="price-row-label">Full Body with Brazilian</span><span class="price-row-value">AED 105</span></div>
+                <div class="price-row"><span class="price-row-label">Lower Legs</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Upper Legs</span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Full Back / Front</span><span class="price-row-value">AED 100</span></div>
+                <div class="price-row"><span class="price-row-label">Half Back / Front</span><span class="price-row-value">AED 70</span></div>
+                <div class="price-row"><span class="price-row-label">Eyebrows</span><span class="price-row-value">AED 50</span></div>
+                <div class="price-row"><span class="price-row-label">Upper Lips</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Nose</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Forehead</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Cheek</span><span class="price-row-value">AED 35</span></div>
+                <div class="price-row"><span class="price-row-label">Sideburn</span><span class="price-row-value">AED 40</span></div>
+                <div class="price-row"><span class="price-row-label">Full Face</span><span class="price-row-value">AED 115</span></div>
+                <div class="price-row"><span class="price-row-label">Fingers / Toes</span><span class="price-row-value">AED 20</span></div>
+                <div class="price-row"><span class="price-row-label">Naval</span><span class="price-row-value">AED 20</span></div>
+            </div>
+        </details>
+
+        <!-- Makeup -->
+        <details class="price-category reveal">
+            <summary>Makeup</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Eye Makeup</span><span class="price-row-value">AED 200 onwards</span></div>
+                <div class="price-row"><span class="price-row-label">Day Makeup</span><span class="price-row-value">AED 325</span></div>
+                <div class="price-row"><span class="price-row-label">Evening Makeup</span><span class="price-row-value">AED 425</span></div>
+                <div class="price-row"><span class="price-row-label">Bridal Makeup</span><span class="price-row-value">AED 1,000</span></div>
+            </div>
+        </details>
+
+        <!-- Kids Services -->
+        <details class="price-category reveal">
+            <summary>Kids Services</summary>
+            <div class="price-category-content">
+                <div class="price-row"><span class="price-row-label">Manicure</span><span class="price-row-value">AED 45</span></div>
+                <div class="price-row"><span class="price-row-label">Pedicure</span><span class="price-row-value">AED 50</span></div>
+                <div class="price-row"><span class="price-row-label">Hair Cut <span class="price-row-note">(3–6 years)</span></span><span class="price-row-value">AED 80</span></div>
+                <div class="price-row"><span class="price-row-label">Hair Cut with Blowdry <span class="price-row-note">(3–6 years)</span></span><span class="price-row-value">AED 110</span></div>
+                <div class="price-row"><span class="price-row-label">Hair Cut <span class="price-row-note">(7–12 years)</span></span><span class="price-row-value">AED 100</span></div>
+                <div class="price-row"><span class="price-row-label">Hair Cut with Blowdry <span class="price-row-note">(7–12 years)</span></span><span class="price-row-value">AED 130</span></div>
+            </div>
+        </details>
+
+        <!-- Membership Plans -->
+        <details class="price-category reveal">
+            <summary>Membership Plans</summary>
+            <div class="price-category-content">
+                <div class="price-subhead">Basic Bae — AED 799 (12 Months)</div>
+                <div class="price-row"><span class="price-row-label">15% discount on services</span></div>
+                <div class="price-row"><span class="price-row-label">Gift voucher up to AED 200</span></div>
+                <div class="price-row"><span class="price-row-label">Save AED 4,600</span></div>
+                <div class="price-subhead">Glam Doll — AED 1,999 (12 Months)</div>
+                <div class="price-row"><span class="price-row-label">20% discount on services</span></div>
+                <div class="price-row"><span class="price-row-label">10% retail discount</span></div>
+                <div class="price-row"><span class="price-row-label">2 gift vouchers up to AED 400</span></div>
+                <div class="price-row"><span class="price-row-label">Monthly complimentary Gelish manicure & pedicure</span></div>
+                <div class="price-row"><span class="price-row-label">Foot massages</span></div>
+                <div class="price-row"><span class="price-row-label">Save AED 2,600</span></div>
+                <div class="price-subhead">Glitter Girl — AED 2,999 (12 Months)</div>
+                <div class="price-row"><span class="price-row-label">25% discount on services</span></div>
+                <div class="price-row"><span class="price-row-label">12% retail discount</span></div>
+                <div class="price-row"><span class="price-row-label">Full body massage</span></div>
+                <div class="price-row"><span class="price-row-label">3 gift vouchers up to AED 600</span></div>
+                <div class="price-row"><span class="price-row-label">Free services worth AED 400 / month</span></div>
+                <div class="price-row"><span class="price-row-label">Save AED 6,000</span></div>
+                <div class="price-subhead">Queen Bee — AED 4,999 (14 Months)</div>
+                <div class="price-row"><span class="price-row-label">30% discount on services</span></div>
+                <div class="price-row"><span class="price-row-label">15% retail discount on renewal</span></div>
+                <div class="price-row"><span class="price-row-label">Massage + cleansing facial</span></div>
+                <div class="price-row"><span class="price-row-label">4 gift vouchers up to AED 800</span></div>
+                <div class="price-row"><span class="price-row-label">Monthly complimentary services</span></div>
+                <div class="price-row"><span class="price-row-label">Save AED 7,600</span></div>
+            </div>
+        </details>
+
     </div>
-    <div class="service-card reveal">
-      <div class="service-num">04</div>
-      <div class="service-name">Manicure & Pedicure</div>
-      <p class="service-desc">A ritual for your hands and feet. Exfoliation, hydration, and flawless color in a relaxing home setting.</p>
-      <div class="service-price">From AED 120</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">05</div>
-      <div class="service-name">Massage Therapy</div>
-      <p class="service-desc">Swedish, deep tissue, or aromatherapy — our certified therapists bring spa-quality relaxation to your home.</p>
-      <div class="service-price">From AED 200</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-num">06</div>
-      <div class="service-name">Luxury Facials</div>
-      <p class="service-desc">Skin-transforming facials using medical-grade products tailored to your skin type. Glow, nourish, restore.</p>
-      <div class="service-price">From AED 250</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">07</div>
-      <div class="service-name">Waxing</div>
-      <p class="service-desc">Smooth, precise waxing using the finest hot and strip wax for a comfortable, long-lasting result.</p>
-      <div class="service-price">From AED 60</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal reveal-delay-1">
-      <div class="service-num">08</div>
-      <div class="service-name">Threading & Brows</div>
-      <p class="service-desc">Expert brow shaping and threading to frame your face beautifully. Precision is our promise.</p>
-      <div class="service-price">From AED 40</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal reveal-delay-2">
-      <div class="service-num">09</div>
-      <div class="service-name">Bridal Packages</div>
-      <p class="service-desc">Your most beautiful day, perfected. Complete bridal beauty packages designed around your unique style.</p>
-      <div class="service-price">From AED 800</div>
-      <div class="service-arrow">→</div>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-num">10</div>
-      <div class="service-name">Wellness Treatments</div>
-      <p class="service-desc">Holistic wellness rituals — from detox body wraps to energy-balancing treatments for mind and body.</p>
-      <div class="service-price">From AED 300</div>
-      <div class="service-arrow">→</div>
-    </div>
-  </div>
 </section>
 
 <!-- Glam Pass -->
 <section id="glampass">
-  <div class="glam-header">
-    <span class="section-eyebrow reveal">Membership</span>
-    <h2 class="section-title reveal reveal-delay-1">The <em>Glam Pass</em><br>Experience</h2>
-    <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Become a NOOREA member and unlock exclusive benefits, priority bookings, and significant savings on every visit.</p>
-  </div>
-  <div class="plans-grid">
-    <div class="plan-card reveal">
-      <div class="plan-tier">Basic</div>
-      <div class="plan-name">Essential</div>
-      <div class="plan-price">AED 299<span>/mo</span></div>
-      <div class="plan-period">Billed monthly • Cancel anytime</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li class="highlight">2 services per month</li>
-        <li>10% off all bookings</li>
-        <li>Priority scheduling</li>
-        <li>Complimentary nail treatment (quarterly)</li>
-        <li>Member-only promotions</li>
-      </ul>
-      <button class="plan-cta" onclick="scrollToBooking()">Get Started</button>
+    <div class="glam-header">
+        <span class="section-eyebrow reveal">Membership</span>
+        <h2 class="section-title reveal reveal-delay-1">The <em>Glam Pass</em><br>Experience</h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Become a NOOREA member and unlock exclusive benefits, priority bookings, and significant savings on every visit.</p>
     </div>
-    <div class="plan-card featured reveal reveal-delay-1">
-      <div class="plan-featured-badge">Most Popular</div>
-      <div class="plan-tier">Premium</div>
-      <div class="plan-name">Luxe</div>
-      <div class="plan-price">AED 599<span>/mo</span></div>
-      <div class="plan-period">Billed monthly • Cancel anytime</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li class="highlight">5 services per month</li>
-        <li class="highlight">20% off all bookings</li>
-        <li class="highlight">VIP same-day booking</li>
-        <li>Monthly facial included</li>
-        <li>Complimentary blow dry (monthly)</li>
-        <li>Exclusive product gifts</li>
-        <li>Dedicated beauty concierge</li>
-      </ul>
-      <button class="plan-cta" onclick="scrollToBooking()">Join Luxe</button>
+    <div class="plans-grid">
+        <div class="plan-card reveal">
+            <div class="plan-tier">Basic</div>
+            <div class="plan-name">Essential</div>
+            <div class="plan-price">AED 299<span>/mo</span></div>
+            <div class="plan-period">Billed monthly • Cancel anytime</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+                <li class="highlight">2 services per month</li>
+                <li>10% off all bookings</li>
+                <li>Priority scheduling</li>
+                <li>Complimentary nail treatment (quarterly)</li>
+                <li>Member-only promotions</li>
+            </ul>
+            <button class="plan-cta" onclick="scrollToBooking()">Get Started</button>
+        </div>
+        <div class="plan-card featured reveal reveal-delay-1">
+            <div class="plan-featured-badge">Most Popular</div>
+            <div class="plan-tier">Premium</div>
+            <div class="plan-name">Luxe</div>
+            <div class="plan-price">AED 599<span>/mo</span></div>
+            <div class="plan-period">Billed monthly • Cancel anytime</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+                <li class="highlight">5 services per month</li>
+                <li class="highlight">20% off all bookings</li>
+                <li class="highlight">VIP same-day booking</li>
+                <li>Monthly facial included</li>
+                <li>Complimentary blow dry (monthly)</li>
+                <li>Exclusive product gifts</li>
+                <li>Dedicated beauty concierge</li>
+            </ul>
+            <button class="plan-cta" onclick="scrollToBooking()">Join Luxe</button>
+        </div>
+        <div class="plan-card reveal reveal-delay-2">
+            <div class="plan-tier">Ultra Luxury</div>
+            <div class="plan-name">Prestige</div>
+            <div class="plan-price">AED 1,299<span>/mo</span></div>
+            <div class="plan-period">Billed monthly • Cancel anytime</div>
+            <div class="plan-divider"></div>
+            <ul class="plan-features">
+                <li class="highlight">Unlimited services</li>
+                <li class="highlight">30% off all bookings</li>
+                <li class="highlight">24/7 concierge access</li>
+                <li class="highlight">Weekly facial or massage</li>
+                <li>Full bridal styling (1x year)</li>
+                <li>Premium product hamper (quarterly)</li>
+                <li>Guest passes (2 per month)</li>
+                <li>Invite-only beauty events</li>
+            </ul>
+            <button class="plan-cta" onclick="scrollToBooking()">Go Prestige</button>
+        </div>
     </div>
-    <div class="plan-card reveal reveal-delay-2">
-      <div class="plan-tier">Ultra Luxury</div>
-      <div class="plan-name">Prestige</div>
-      <div class="plan-price">AED 1,299<span>/mo</span></div>
-      <div class="plan-period">Billed monthly • Cancel anytime</div>
-      <div class="plan-divider"></div>
-      <ul class="plan-features">
-        <li class="highlight">Unlimited services</li>
-        <li class="highlight">30% off all bookings</li>
-        <li class="highlight">24/7 concierge access</li>
-        <li class="highlight">Weekly facial or massage</li>
-        <li>Full bridal styling (1x year)</li>
-        <li>Premium product hamper (quarterly)</li>
-        <li>Guest passes (2 per month)</li>
-        <li>Invite-only beauty events</li>
-      </ul>
-      <button class="plan-cta" onclick="scrollToBooking()">Go Prestige</button>
-    </div>
-  </div>
 </section>
 
 <!-- Booking -->
 <section id="booking">
-  <div class="booking-container">
-    <div class="booking-info">
-      <span class="section-eyebrow reveal">Reserve</span>
-      <h2 class="section-title reveal reveal-delay-1">Book Your<br><em>Beauty Ritual</em></h2>
-      <p class="section-sub reveal reveal-delay-2">Choose your preferred service, select a time, and we'll bring the salon to you. Confirmation within 30 minutes.</p>
-      <div style="margin-top:2.5rem" class="reveal reveal-delay-3">
-        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
-          <div style="width:40px;height:1px;background:var(--gold)"></div>
-          <span style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.2em">WE ACCEPT</span>
+    <div class="booking-container">
+        <div class="booking-info">
+            <span class="section-eyebrow reveal">Reserve</span>
+            <h2 class="section-title reveal reveal-delay-1">Book Your<br><em>Beauty Ritual</em></h2>
+            <p class="section-sub reveal reveal-delay-2">Choose your preferred service, select a time, and we'll bring the salon to you. Confirmation within 30 minutes.</p>
+            <div style="margin-top:2.5rem" class="reveal reveal-delay-3">
+                <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem">
+                    <div style="width:40px;height:1px;background:var(--gold)"></div>
+                    <span style="font-size:0.75rem;color:var(--text-muted);letter-spacing:0.2em">WE ACCEPT</span>
+                </div>
+                <div style="display:flex;gap:1rem;flex-wrap:wrap">
+                    <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Cash</span>
+                    <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Card</span>
+                    <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Bank Transfer</span>
+                    <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">PayToMe</span>
+                </div>
+            </div>
         </div>
-        <div style="display:flex;gap:1rem;flex-wrap:wrap">
-          <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Cash</span>
-          <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Card</span>
-          <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">Bank Transfer</span>
-          <span style="border:1px solid var(--glass-border);padding:0.4rem 1rem;font-size:0.7rem;letter-spacing:0.15em;color:var(--text-muted)">PayToMe</span>
+        <div class="booking-form reveal">
+            <div class="form-group">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-input" placeholder="Full name" id="bName">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-input" placeholder="+971 XX XXX XXXX" id="bPhone">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Select Service</label>
+                <select class="form-select" id="bService">
+                    <option value="">Choose your treatment</option>
+                    <option>Hair Styling</option>
+                    <option>Blow Dry</option>
+                    <option>Manicure & Pedicure</option>
+                    <option>Nail Artistry</option>
+                    <option>Massage Therapy</option>
+                    <option>Luxury Facial</option>
+                    <option>Waxing</option>
+                    <option>Threading & Brows</option>
+                    <option>Bridal Package</option>
+                    <option>Wellness Treatment</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Preferred Date</label>
+                <input type="date" class="form-input" id="bDate">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Preferred Time</label>
+                <div class="time-slots">
+                    <button class="time-slot" onclick="selectTime(this,'09:00')">9:00 AM</button>
+                    <button class="time-slot" onclick="selectTime(this,'10:00')">10:00 AM</button>
+                    <button class="time-slot" onclick="selectTime(this,'11:00')">11:00 AM</button>
+                    <button class="time-slot" onclick="selectTime(this,'13:00')">1:00 PM</button>
+                    <button class="time-slot" onclick="selectTime(this,'15:00')">3:00 PM</button>
+                    <button class="time-slot" onclick="selectTime(this,'17:00')">5:00 PM</button>
+                    <button class="time-slot" onclick="selectTime(this,'19:00')">7:00 PM</button>
+                    <button class="time-slot" onclick="selectTime(this,'20:00')">8:00 PM</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Your Address in Dubai</label>
+                <textarea class="form-textarea form-input" placeholder="Area, building name, apartment number..." id="bAddress"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Special Requests</label>
+                <textarea class="form-textarea form-input" placeholder="Any notes or special requirements..." id="bNotes" style="height:70px"></textarea>
+            </div>
+            <div class="submit-row">
+                <button class="btn-primary" onclick="submitBooking()" style="flex:1;border:none;cursor:none">Confirm Booking</button>
+                <a href="#" id="waLink" class="wa-btn" onclick="whatsappBook(event)">
+                    <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.28 7.047L.787 23.385l4.456-1.471A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.369l-.36-.213-3.722 1.229 1.249-3.617-.235-.371A9.818 9.818 0 0112 2.182c5.423 0 9.818 4.396 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
+                    Book via WhatsApp
+                </a>
+            </div>
+            <div id="bookingMsg" style="margin-top:1.2rem;display:none;padding:1rem;border:1px solid var(--gold);font-size:0.82rem;color:var(--gold);letter-spacing:0.1em"></div>
         </div>
-      </div>
     </div>
-    <div class="booking-form reveal">
-      <div class="form-group">
-        <label class="form-label">Your Name</label>
-        <input type="text" class="form-input" placeholder="Full name" id="bName">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Phone Number</label>
-        <input type="tel" class="form-input" placeholder="+971 XX XXX XXXX" id="bPhone">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Select Service</label>
-        <select class="form-select" id="bService">
-          <option value="">Choose your treatment</option>
-          <option>Hair Styling</option>
-          <option>Blow Dry</option>
-          <option>Manicure & Pedicure</option>
-          <option>Nail Artistry</option>
-          <option>Massage Therapy</option>
-          <option>Luxury Facial</option>
-          <option>Waxing</option>
-          <option>Threading & Brows</option>
-          <option>Bridal Package</option>
-          <option>Wellness Treatment</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Preferred Date</label>
-        <input type="date" class="form-input" id="bDate">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Preferred Time</label>
-        <div class="time-slots">
-          <button class="time-slot" onclick="selectTime(this,'09:00')">9:00 AM</button>
-          <button class="time-slot" onclick="selectTime(this,'10:00')">10:00 AM</button>
-          <button class="time-slot" onclick="selectTime(this,'11:00')">11:00 AM</button>
-          <button class="time-slot" onclick="selectTime(this,'13:00')">1:00 PM</button>
-          <button class="time-slot" onclick="selectTime(this,'15:00')">3:00 PM</button>
-          <button class="time-slot" onclick="selectTime(this,'17:00')">5:00 PM</button>
-          <button class="time-slot" onclick="selectTime(this,'19:00')">7:00 PM</button>
-          <button class="time-slot" onclick="selectTime(this,'20:00')">8:00 PM</button>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Your Address in Dubai</label>
-        <textarea class="form-textarea form-input" placeholder="Area, building name, apartment number..." id="bAddress"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Special Requests</label>
-        <textarea class="form-textarea form-input" placeholder="Any notes or special requirements..." id="bNotes" style="height:70px"></textarea>
-      </div>
-      <div class="submit-row">
-        <button class="btn-primary" onclick="submitBooking()" style="flex:1;border:none;cursor:none">Confirm Booking</button>
-        <a href="#" id="waLink" class="wa-btn" onclick="whatsappBook(event)">
-          <svg class="wa-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.28 7.047L.787 23.385l4.456-1.471A11.954 11.954 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.369l-.36-.213-3.722 1.229 1.249-3.617-.235-.371A9.818 9.818 0 0112 2.182c5.423 0 9.818 4.396 9.818 9.818 0 5.423-4.395 9.818-9.818 9.818z"/></svg>
-          Book via WhatsApp
-        </a>
-      </div>
-      <div id="bookingMsg" style="margin-top:1.2rem;display:none;padding:1rem;border:1px solid var(--gold);font-size:0.82rem;color:var(--gold);letter-spacing:0.1em"></div>
-    </div>
-  </div>
 </section>
 
 <!-- Gallery -->
 <section id="gallery">
-  <div class="gallery-header">
-    <span class="section-eyebrow reveal">Gallery</span>
-    <h2 class="section-title reveal reveal-delay-1">Our <em>World</em></h2>
-  </div>
-  <div class="gallery-grid reveal">
-    <div class="gallery-item"><div class="gallery-inner">Bridal Beauty</div><div class="gallery-overlay"></div></div>
-    <div class="gallery-item"><div class="gallery-inner">Nail Artistry</div><div class="gallery-overlay"></div></div>
-    <div class="gallery-item"><div class="gallery-inner">Facial Ritual</div><div class="gallery-overlay"></div></div>
-    <div class="gallery-item"><div class="gallery-inner">Hair Styling</div><div class="gallery-overlay"></div></div>
-    <div class="gallery-item"><div class="gallery-inner">Wellness</div><div class="gallery-overlay"></div></div>
-    <div class="gallery-item"><div class="gallery-inner">Blow Dry</div><div class="gallery-overlay"></div></div>
-  </div>
+    <div class="gallery-header">
+        <span class="section-eyebrow reveal">Gallery</span>
+        <h2 class="section-title reveal reveal-delay-1">Our <em>World</em></h2>
+    </div>
+    <div class="gallery-grid reveal">
+        <div class="gallery-item"><div class="gallery-inner">Bridal Beauty</div><div class="gallery-overlay"></div></div>
+        <div class="gallery-item"><div class="gallery-inner">Nail Artistry</div><div class="gallery-overlay"></div></div>
+        <div class="gallery-item"><div class="gallery-inner">Facial Ritual</div><div class="gallery-overlay"></div></div>
+        <div class="gallery-item"><div class="gallery-inner">Hair Styling</div><div class="gallery-overlay"></div></div>
+        <div class="gallery-item"><div class="gallery-inner">Wellness</div><div class="gallery-overlay"></div></div>
+        <div class="gallery-item"><div class="gallery-inner">Blow Dry</div><div class="gallery-overlay"></div></div>
+    </div>
 </section>
 
 <!-- Testimonials -->
 <section id="testimonials">
-  <div class="testimonials-inner">
-    <span class="section-eyebrow reveal">Client Love</span>
-    <h2 class="section-title reveal reveal-delay-1">What Our <em>Clients</em> Say</h2>
-    <div class="testimonial-slider reveal reveal-delay-2">
-      <div class="testimonial-slide active">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">NOOREA completely changed how I think about beauty. Having a world-class stylist come to my home feels like a dream. The quality is extraordinary.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">S</div>
-          <div class="author-info">
-            <div class="author-name">Sara Al Mansoori</div>
-            <div class="author-role">Business Executive · Dubai Marina</div>
-          </div>
+    <div class="testimonials-inner">
+        <span class="section-eyebrow reveal">Client Love</span>
+        <h2 class="section-title reveal reveal-delay-1">What Our <em>Clients</em> Say</h2>
+        <div class="testimonial-slider reveal reveal-delay-2">
+            <div class="testimonial-slide active">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">NOOREA completely changed how I think about beauty. Having a world-class stylist come to my home feels like a dream. The quality is extraordinary.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">S</div>
+                    <div class="author-info">
+                        <div class="author-name">Sara Al Mansoori</div>
+                        <div class="author-role">Business Executive · Dubai Marina</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">The bridal package was absolutely flawless. My hair and makeup were perfect all day. My guests couldn't stop complimenting me. Worth every dirham.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">L</div>
+                    <div class="author-info">
+                        <div class="author-name">Layla Hassan</div>
+                        <div class="author-role">Bride · Jumeirah</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">The Prestige Glam Pass is the best investment I've made for myself. The convenience, the quality, the personal touch — NOOREA truly understands luxury.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">N</div>
+                    <div class="author-info">
+                        <div class="author-name">Noura Al Rashidi</div>
+                        <div class="author-role">Glam Pass Member · Palm Jumeirah</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-slide">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-quote">I've tried many home beauty services in Dubai, but NOOREA is in a league of its own. The products, the skill, the punctuality — five stars isn't enough.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">A</div>
+                    <div class="author-info">
+                        <div class="author-name">Aisha Kamal</div>
+                        <div class="author-role">Loyal Client · Downtown Dubai</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="testimonial-slide">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">The bridal package was absolutely flawless. My hair and makeup were perfect all day. My guests couldn't stop complimenting me. Worth every dirham.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">L</div>
-          <div class="author-info">
-            <div class="author-name">Layla Hassan</div>
-            <div class="author-role">Bride · Jumeirah</div>
-          </div>
+        <div class="slider-dots">
+            <div class="dot active" onclick="goToSlide(0)"></div>
+            <div class="dot" onclick="goToSlide(1)"></div>
+            <div class="dot" onclick="goToSlide(2)"></div>
+            <div class="dot" onclick="goToSlide(3)"></div>
         </div>
-      </div>
-      <div class="testimonial-slide">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">The Prestige Glam Pass is the best investment I've made for myself. The convenience, the quality, the personal touch — NOOREA truly understands luxury.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">N</div>
-          <div class="author-info">
-            <div class="author-name">Noura Al Rashidi</div>
-            <div class="author-role">Glam Pass Member · Palm Jumeirah</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-slide">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">I've tried many home beauty services in Dubai, but NOOREA is in a league of its own. The products, the skill, the punctuality — five stars isn't enough.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">A</div>
-          <div class="author-info">
-            <div class="author-name">Aisha Kamal</div>
-            <div class="author-role">Loyal Client · Downtown Dubai</div>
-          </div>
-        </div>
-      </div>
     </div>
-    <div class="slider-dots">
-      <div class="dot active" onclick="goToSlide(0)"></div>
-      <div class="dot" onclick="goToSlide(1)"></div>
-      <div class="dot" onclick="goToSlide(2)"></div>
-      <div class="dot" onclick="goToSlide(3)"></div>
-    </div>
-  </div>
 </section>
 
 <!-- VIP -->
 <section id="vip">
-  <div class="vip-glow"></div>
-  <div class="vip-content">
-    <svg class="vip-crown" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 45L5 20L20 30L30 10L40 30L55 20L50 45H10Z" stroke="#B8892A" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
-      <line x1="10" y1="48" x2="50" y2="48" stroke="#B8892A" stroke-width="1.5"/>
-      <circle cx="30" cy="10" r="2" fill="#B8892A"/>
-      <circle cx="5" cy="20" r="2" fill="#B8892A"/>
-      <circle cx="55" cy="20" r="2" fill="#B8892A"/>
-    </svg>
-    <h2 class="vip-title reveal">Join the <em>NOOREA</em><br>Inner Circle</h2>
-    <p class="section-sub reveal reveal-delay-1" style="margin:1.5rem auto">Become a VIP member and access the most exclusive beauty experience in Dubai. Limited memberships available.</p>
-    <div class="vip-perks reveal reveal-delay-2">
-      <div class="vip-perk">
-        <div class="vip-perk-icon">✦</div>
-        <div class="vip-perk-text">Priority Access</div>
-      </div>
-      <div class="vip-perk">
-        <div class="vip-perk-icon">✦</div>
-        <div class="vip-perk-text">Exclusive Events</div>
-      </div>
-      <div class="vip-perk">
-        <div class="vip-perk-icon">✦</div>
-        <div class="vip-perk-text">Personal Concierge</div>
-      </div>
-      <div class="vip-perk">
-        <div class="vip-perk-icon">✦</div>
-        <div class="vip-perk-text">Premium Gifts</div>
-      </div>
-      <div class="vip-perk">
-        <div class="vip-perk-icon">✦</div>
-        <div class="vip-perk-text">Unlimited Services</div>
-      </div>
+    <div class="vip-glow"></div>
+    <div class="vip-content">
+        <svg class="vip-crown" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 45L5 20L20 30L30 10L40 30L55 20L50 45H10Z" stroke="#B8892A" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+            <line x1="10" y1="48" x2="50" y2="48" stroke="#B8892A" stroke-width="1.5"/>
+            <circle cx="30" cy="10" r="2" fill="#B8892A"/>
+            <circle cx="5" cy="20" r="2" fill="#B8892A"/>
+            <circle cx="55" cy="20" r="2" fill="#B8892A"/>
+        </svg>
+        <h2 class="vip-title reveal">Join the <em>NOOREA</em><br>Inner Circle</h2>
+        <p class="section-sub reveal reveal-delay-1" style="margin:1.5rem auto">Become a VIP member and access the most exclusive beauty experience in Dubai. Limited memberships available.</p>
+        <div class="vip-perks reveal reveal-delay-2">
+            <div class="vip-perk">
+                <div class="vip-perk-icon">✦</div>
+                <div class="vip-perk-text">Priority Access</div>
+            </div>
+            <div class="vip-perk">
+                <div class="vip-perk-icon">✦</div>
+                <div class="vip-perk-text">Exclusive Events</div>
+            </div>
+            <div class="vip-perk">
+                <div class="vip-perk-icon">✦</div>
+                <div class="vip-perk-text">Personal Concierge</div>
+            </div>
+            <div class="vip-perk">
+                <div class="vip-perk-icon">✦</div>
+                <div class="vip-perk-text">Premium Gifts</div>
+            </div>
+            <div class="vip-perk">
+                <div class="vip-perk-icon">✦</div>
+                <div class="vip-perk-text">Unlimited Services</div>
+            </div>
+        </div>
+        <div class="vip-border reveal reveal-delay-3">
+            <a href="#glampass">Explore Prestige Membership</a>
+        </div>
     </div>
-    <div class="vip-border reveal reveal-delay-3">
-      <a href="#glampass">Explore Prestige Membership</a>
-    </div>
-  </div>
 </section>
 
 <!-- Blog -->
 <section id="blog">
-  <span class="section-eyebrow reveal">The NOOREA Journal</span>
-  <h2 class="section-title reveal reveal-delay-1">Beauty <em>Insights</em><br>& Wellness Wisdom</h2>
-  <div class="blog-grid">
-    <div class="blog-card reveal">
-      <div class="blog-thumb">The Art of Bridal Beauty<div class="blog-thumb-line"></div></div>
-      <div class="blog-body">
-        <div class="blog-cat">Bridal</div>
-        <div class="blog-title">How to Plan Your Perfect Wedding Day Beauty Timeline</div>
-        <p class="blog-excerpt">From the first trial to the final touch, discover how to create a seamless bridal beauty experience that keeps you radiant all day.</p>
-        <div class="blog-meta">June 2025 · 5 min read</div>
-      </div>
+    <span class="section-eyebrow reveal">The NOOREA Journal</span>
+    <h2 class="section-title reveal reveal-delay-1">Beauty <em>Insights</em><br>& Wellness Wisdom</h2>
+    <div class="blog-grid">
+        <div class="blog-card reveal">
+            <div class="blog-thumb">The Art of Bridal Beauty<div class="blog-thumb-line"></div></div>
+            <div class="blog-body">
+                <div class="blog-cat">Bridal</div>
+                <div class="blog-title">How to Plan Your Perfect Wedding Day Beauty Timeline</div>
+                <p class="blog-excerpt">From the first trial to the final touch, discover how to create a seamless bridal beauty experience that keeps you radiant all day.</p>
+                <div class="blog-meta">June 2025 · 5 min read</div>
+            </div>
+        </div>
+        <div class="blog-card reveal reveal-delay-1">
+            <div class="blog-thumb">Dubai Skincare Guide<div class="blog-thumb-line"></div></div>
+            <div class="blog-body">
+                <div class="blog-cat">Skincare</div>
+                <div class="blog-title">The Ultimate Skincare Routine for Dubai's Climate</div>
+                <p class="blog-excerpt">The heat, humidity, and air conditioning in Dubai can wreak havoc on your skin. Here's how our experts recommend you adapt your routine.</p>
+                <div class="blog-meta">May 2025 · 4 min read</div>
+            </div>
+        </div>
+        <div class="blog-card reveal reveal-delay-2">
+            <div class="blog-thumb">Nail Trend Report<div class="blog-thumb-line"></div></div>
+            <div class="blog-body">
+                <div class="blog-cat">Nail Art</div>
+                <div class="blog-title">2025's Most Wanted Nail Trends, Ranked by Our Artists</div>
+                <p class="blog-excerpt">From quiet luxury neutrals to bold chrome statement nails — our top nail artists reveal what's trending and why you'll want to book immediately.</p>
+                <div class="blog-meta">April 2025 · 3 min read</div>
+            </div>
+        </div>
     </div>
-    <div class="blog-card reveal reveal-delay-1">
-      <div class="blog-thumb">Dubai Skincare Guide<div class="blog-thumb-line"></div></div>
-      <div class="blog-body">
-        <div class="blog-cat">Skincare</div>
-        <div class="blog-title">The Ultimate Skincare Routine for Dubai's Climate</div>
-        <p class="blog-excerpt">The heat, humidity, and air conditioning in Dubai can wreak havoc on your skin. Here's how our experts recommend you adapt your routine.</p>
-        <div class="blog-meta">May 2025 · 4 min read</div>
-      </div>
-    </div>
-    <div class="blog-card reveal reveal-delay-2">
-      <div class="blog-thumb">Nail Trend Report<div class="blog-thumb-line"></div></div>
-      <div class="blog-body">
-        <div class="blog-cat">Nail Art</div>
-        <div class="blog-title">2025's Most Wanted Nail Trends, Ranked by Our Artists</div>
-        <p class="blog-excerpt">From quiet luxury neutrals to bold chrome statement nails — our top nail artists reveal what's trending and why you'll want to book immediately.</p>
-        <div class="blog-meta">April 2025 · 3 min read</div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- Contact -->
 <section id="contact" style="padding:0">
-  <div class="contact-left">
-    <span class="section-eyebrow reveal">Get in Touch</span>
-    <h2 class="section-title reveal reveal-delay-1">Let's Create<br><em>Something Beautiful</em></h2>
-    <p class="section-sub reveal reveal-delay-2">We'd love to hear from you. Reach out for bookings, membership enquiries, or to simply say hello.</p>
-    <div class="contact-links">
-      <a href="https://wa.me/971XXXXXXXXX" class="contact-link reveal">
-        <div class="contact-link-icon">✉</div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">WhatsApp</div>
-          <div>+971 XX XXX XXXX</div>
+    <div class="contact-left">
+        <span class="section-eyebrow reveal">Get in Touch</span>
+        <h2 class="section-title reveal reveal-delay-1">Let's Create<br><em>Something Beautiful</em></h2>
+        <p class="section-sub reveal reveal-delay-2">We'd love to hear from you. Reach out for bookings, membership enquiries, or to simply say hello.</p>
+        <div class="contact-links">
+            <a href="https://wa.me/971XXXXXXXXX" class="contact-link reveal">
+                <div class="contact-link-icon">✉</div>
+                <div>
+                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">WhatsApp</div>
+                    <div>+971 XX XXX XXXX</div>
+                </div>
+            </a>
+            <a href="mailto:hello@noorea.ae" class="contact-link reveal reveal-delay-1">
+                <div class="contact-link-icon">@</div>
+                <div>
+                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Email</div>
+                    <div>hello@noorea.ae</div>
+                </div>
+            </a>
+            <a href="#" class="contact-link reveal reveal-delay-2">
+                <div class="contact-link-icon">◈</div>
+                <div>
+                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Service Area</div>
+                    <div>All Dubai, Sharjah, Abu Dhabi</div>
+                </div>
+            </a>
+            <a href="#" class="contact-link reveal reveal-delay-3">
+                <div class="contact-link-icon">◷</div>
+                <div>
+                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Hours</div>
+                    <div>Daily 9:00 AM – 9:00 PM</div>
+                </div>
+            </a>
         </div>
-      </a>
-      <a href="mailto:hello@noorea.ae" class="contact-link reveal reveal-delay-1">
-        <div class="contact-link-icon">@</div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Email</div>
-          <div>hello@noorea.ae</div>
-        </div>
-      </a>
-      <a href="#" class="contact-link reveal reveal-delay-2">
-        <div class="contact-link-icon">◈</div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Service Area</div>
-          <div>All Dubai, Sharjah, Abu Dhabi</div>
-        </div>
-      </a>
-      <a href="#" class="contact-link reveal reveal-delay-3">
-        <div class="contact-link-icon">◷</div>
-        <div>
-          <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Hours</div>
-          <div>Daily 9:00 AM – 9:00 PM</div>
-        </div>
-      </a>
     </div>
-  </div>
-  <div class="contact-right">
-    <div class="map-placeholder reveal" style="background:var(--bg3);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);position:relative;overflow:hidden">
-      <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12" viewBox="0 0 400 300">
-        <line x1="0" y1="50" x2="400" y2="50" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="0" y1="100" x2="400" y2="100" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="0" y1="150" x2="400" y2="150" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="0" y1="200" x2="400" y2="200" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="0" y1="250" x2="400" y2="250" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="50" y1="0" x2="50" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="100" y1="0" x2="100" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="150" y1="0" x2="150" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="200" y1="0" x2="200" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="250" y1="0" x2="250" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="300" y1="0" x2="300" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <line x1="350" y1="0" x2="350" y2="300" stroke="#B8892A" stroke-width="0.5"/>
-        <circle cx="200" cy="150" r="8" fill="#B8892A" opacity="0.8"/>
-        <circle cx="200" cy="150" r="20" stroke="#B8892A" stroke-width="1" fill="none" opacity="0.4"/>
-        <circle cx="200" cy="150" r="35" stroke="#B8892A" stroke-width="0.5" fill="none" opacity="0.2"/>
-      </svg>
-      <div style="text-align:center;z-index:2">
-        <div style="font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:0.5rem">Dubai, UAE</div>
-        <div style="font-size:0.65rem;letter-spacing:0.3em;color:var(--text-muted);text-transform:uppercase">We Come to You</div>
-      </div>
+    <div class="contact-right">
+        <div class="map-placeholder reveal" style="background:var(--bg3);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);position:relative;overflow:hidden">
+            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.12" viewBox="0 0 400 300">
+                <line x1="0" y1="50" x2="400" y2="50" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="0" y1="100" x2="400" y2="100" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="0" y1="150" x2="400" y2="150" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="0" y1="200" x2="400" y2="200" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="0" y1="250" x2="400" y2="250" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="50" y1="0" x2="50" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="100" y1="0" x2="100" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="150" y1="0" x2="150" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="200" y1="0" x2="200" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="250" y1="0" x2="250" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="300" y1="0" x2="300" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <line x1="350" y1="0" x2="350" y2="300" stroke="#B8892A" stroke-width="0.5"/>
+                <circle cx="200" cy="150" r="8" fill="#B8892A" opacity="0.8"/>
+                <circle cx="200" cy="150" r="20" stroke="#B8892A" stroke-width="1" fill="none" opacity="0.4"/>
+                <circle cx="200" cy="150" r="35" stroke="#B8892A" stroke-width="0.5" fill="none" opacity="0.2"/>
+            </svg>
+            <div style="text-align:center;z-index:2">
+                <div style="font-family:var(--serif);font-style:italic;color:var(--gold);font-size:1rem;margin-bottom:0.5rem">Dubai, UAE</div>
+                <div style="font-size:0.65rem;letter-spacing:0.3em;color:var(--text-muted);text-transform:uppercase">We Come to You</div>
+            </div>
+        </div>
+        <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap" class="reveal reveal-delay-1">
+            <a href="https://www.instagram.com" target="_blank" class="btn-ghost" style="padding:0.8rem 1.5rem;font-size:0.65rem">Instagram ↗</a>
+            <a href="https://www.tiktok.com" target="_blank" class="btn-ghost" style="padding:0.8rem 1.5rem;font-size:0.65rem">TikTok ↗</a>
+            <a href="https://wa.me/971XXXXXXXXX" target="_blank" class="btn-primary" style="padding:0.8rem 1.5rem;font-size:0.65rem">WhatsApp Us ↗</a>
+        </div>
     </div>
-    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap" class="reveal reveal-delay-1">
-      <a href="https://www.instagram.com" target="_blank" class="btn-ghost" style="padding:0.8rem 1.5rem;font-size:0.65rem">Instagram ↗</a>
-      <a href="https://www.tiktok.com" target="_blank" class="btn-ghost" style="padding:0.8rem 1.5rem;font-size:0.65rem">TikTok ↗</a>
-      <a href="https://wa.me/971XXXXXXXXX" target="_blank" class="btn-primary" style="padding:0.8rem 1.5rem;font-size:0.65rem">WhatsApp Us ↗</a>
-    </div>
-  </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <a href="#hero" class="nav-logo">NOOREA</a>
-      <p class="footer-tagline">Dubai's most luxurious home salon & wellness experience. Where beauty meets sanctuary, in the comfort of your home.</p>
-      <div class="footer-social">
-        <a href="#" class="social-icon" title="Instagram">IG</a>
-        <a href="#" class="social-icon" title="TikTok">TK</a>
-        <a href="#" class="social-icon" title="WhatsApp">WA</a>
-        <a href="#" class="social-icon" title="Pinterest">PT</a>
-      </div>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="#hero" class="nav-logo">NOOREA</a>
+            <p class="footer-tagline">Dubai's most luxurious home salon & wellness experience. Where beauty meets sanctuary, in the comfort of your home.</p>
+            <div class="footer-social">
+                <a href="#" class="social-icon" title="Instagram">IG</a>
+                <a href="#" class="social-icon" title="TikTok">TK</a>
+                <a href="#" class="social-icon" title="WhatsApp">WA</a>
+                <a href="#" class="social-icon" title="Pinterest">PT</a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Services</h4>
+            <ul class="footer-links">
+                <li><a href="#services">Hair Styling</a></li>
+                <li><a href="#services">Blow Dry Bar</a></li>
+                <li><a href="#services">Nail Artistry</a></li>
+                <li><a href="#services">Massage Therapy</a></li>
+                <li><a href="#services">Luxury Facials</a></li>
+                <li><a href="#services">Bridal Packages</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Membership</h4>
+            <ul class="footer-links">
+                <li><a href="#glampass">Essential Pass</a></li>
+                <li><a href="#glampass">Luxe Pass</a></li>
+                <li><a href="#glampass">Prestige Pass</a></li>
+                <li><a href="#vip">VIP Inner Circle</a></li>
+                <li><a href="#booking">Gift Cards</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <ul class="footer-links">
+                <li><a href="#about">About NOOREA</a></li>
+                <li><a href="#blog">The Journal</a></li>
+                <li><a href="#testimonials">Client Stories</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+            </ul>
+        </div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul class="footer-links">
-        <li><a href="#services">Hair Styling</a></li>
-        <li><a href="#services">Blow Dry Bar</a></li>
-        <li><a href="#services">Nail Artistry</a></li>
-        <li><a href="#services">Massage Therapy</a></li>
-        <li><a href="#services">Luxury Facials</a></li>
-        <li><a href="#services">Bridal Packages</a></li>
-      </ul>
+    <div class="footer-bottom">
+        <div class="footer-copy">© 2025 NOOREA Home Salon & Wellness. All rights reserved.</div>
+        <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+        </div>
     </div>
-    <div class="footer-col">
-      <h4>Membership</h4>
-      <ul class="footer-links">
-        <li><a href="#glampass">Essential Pass</a></li>
-        <li><a href="#glampass">Luxe Pass</a></li>
-        <li><a href="#glampass">Prestige Pass</a></li>
-        <li><a href="#vip">VIP Inner Circle</a></li>
-        <li><a href="#booking">Gift Cards</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul class="footer-links">
-        <li><a href="#about">About NOOREA</a></li>
-        <li><a href="#blog">The Journal</a></li>
-        <li><a href="#testimonials">Client Stories</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Press</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 NOOREA Home Salon & Wellness. All rights reserved.</div>
-    <div class="footer-legal">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Cookie Policy</a>
-    </div>
-  </div>
 </footer>
 
 <script>
@@ -952,7 +1304,7 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px'});
 const animateCursor=()=>{rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;cursorRing.style.left=rx+'px';cursorRing.style.top=ry+'px';requestAnimationFrame(animateCursor)};
 animateCursor();
-document.querySelectorAll('a,button,.service-card,.gallery-item,.time-slot,.plan-cta').forEach(el=>{
+document.querySelectorAll('a,button,.service-card,.gallery-item,.time-slot,.plan-cta,summary,.price-category').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cursorRing.style.transform='translate(-50%,-50%) scale(1.8)';cursorRing.style.opacity='0.7'});
   el.addEventListener('mouseleave',()=>{cursorRing.style.transform='translate(-50%,-50%) scale(1)';cursorRing.style.opacity='0.4'});
 });
@@ -1074,6 +1426,17 @@ window.addEventListener('scroll',()=>{
 });
 
 document.querySelectorAll('.plan-cta').forEach(btn=>btn.style.cursor='none');
+
+// Accordion: close others on open
+document.querySelectorAll('.price-category').forEach(detail=>{
+  detail.addEventListener('toggle',function(){
+    if(this.open){
+      document.querySelectorAll('.price-category').forEach(other=>{
+        if(other!==this)other.open=false;
+      });
+    }
+  });
+});
 </script>
 </body>
 </html>
