@@ -214,6 +214,7 @@ section{padding:clamp(5rem,12vw,10rem) 5%}
 .wa-btn{display:flex;align-items:center;gap:0.7rem;border:1px solid rgba(37,211,102,0.5);color:rgba(20,160,70,0.9);padding:1rem 1.6rem;text-decoration:none;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;transition:all 0.3s;flex:1;justify-content:center}
 .wa-btn:hover{background:rgba(37,211,102,0.06);border-color:rgba(37,211,102,0.8)}
 .wa-icon{width:18px;height:18px}
+.price-display{margin-top:0.3rem;font-size:0.82rem;color:var(--gold);letter-spacing:0.05em;font-weight:400;display:none}
 
 /* Gallery */
 #gallery{background:var(--bg3);overflow:hidden}
@@ -968,20 +969,31 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
                 <input type="tel" class="form-input" placeholder="+971 XX XXX XXXX" id="bPhone">
             </div>
             <div class="form-group">
-                <label class="form-label">Select Service</label>
-                <select class="form-select" id="bService">
-                    <option value="">Choose your treatment</option>
-                    <option>Hair Styling</option>
-                    <option>Blow Dry</option>
-                    <option>Manicure & Pedicure</option>
-                    <option>Nail Artistry</option>
-                    <option>Massage Therapy</option>
-                    <option>Luxury Facial</option>
-                    <option>Waxing</option>
-                    <option>Threading & Brows</option>
-                    <option>Bridal Package</option>
-                    <option>Wellness Treatment</option>
+                <label class="form-label">Service Category</label>
+                <select class="form-select" id="bCategory">
+                    <option value="">Choose category</option>
+                    <option value="Hair Services">Hair Services</option>
+                    <option value="Hair Color">Hair Color</option>
+                    <option value="Nail Extensions">Nail Extensions</option>
+                    <option value="Manicure & Pedicure">Manicure & Pedicure</option>
+                    <option value="Nail Art">Nail Art</option>
+                    <option value="Nail Add‑ons">Nail Add‑ons</option>
+                    <option value="Facials">Facials</option>
+                    <option value="Massage & Body Treatments">Massage & Body Treatments</option>
+                    <option value="Threading & Lamination">Threading & Lamination</option>
+                    <option value="Eyelashes & Tinting">Eyelashes & Tinting</option>
+                    <option value="Bleaching">Bleaching</option>
+                    <option value="Waxing">Waxing</option>
+                    <option value="Makeup">Makeup</option>
+                    <option value="Kids Services">Kids Services</option>
                 </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Service</label>
+                <select class="form-select" id="bService" disabled>
+                    <option value="">Select a category first</option>
+                </select>
+                <span class="price-display" id="bPriceDisplay"></span>
             </div>
             <div class="form-group">
                 <label class="form-label">Preferred Date</label>
@@ -1394,28 +1406,157 @@ window.selectTime=function(btn,time){
   btn.classList.add('selected');selectedTime=time;
 };
 window.scrollToBooking=function(){document.getElementById('booking').scrollIntoView({behavior:'smooth'})};
-window.submitBooking=function(){
-  const name=document.getElementById('bName').value;
-  const phone=document.getElementById('bPhone').value;
-  const service=document.getElementById('bService').value;
-  const date=document.getElementById('bDate').value;
-  if(!name||!phone||!service||!date||!selectedTime){
-    const msg=document.getElementById('bookingMsg');
-    msg.style.display='block';msg.style.borderColor='rgba(220,80,80,0.5)';msg.style.color='rgba(180,50,50,0.9)';
-    msg.textContent='Please fill in all required fields and select a time slot.';return;
+
+// ---------- Booking menu data ----------
+const menuData = {
+  "Hair Services": [
+    {name:"Wash with Blow Dry (S)", price:110},{name:"Wash with Blow Dry (M)", price:130},{name:"Wash with Blow Dry (L)", price:160},{name:"Wash with Blow Dry (XL)", price:200},{name:"Wash with Blow Dry (XXL)", price:240},
+    {name:"Wash with Paddle Dry (S)", price:190},{name:"Wash with Paddle Dry (M)", price:160},{name:"Wash with Paddle Dry (L)", price:180},{name:"Wash with Paddle Dry (XL)", price:220},{name:"Wash with Paddle Dry (XXL)", price:290},
+    {name:"Blowdry with Extension (S)", price:130},{name:"Blowdry with Extension (M)", price:200},{name:"Blowdry with Extension (L)", price:270},{name:"Blowdry with Extension (XL)", price:220},
+    {name:"Restyle with Blowdry (S)", price:110},{name:"Restyle with Blowdry (M)", price:65},{name:"Restyle with Blowdry (L)", price:85},{name:"Restyle with Blowdry (XL)", price:75},
+    {name:"Trim with Blowdry (S)", price:50},{name:"Trim with Blowdry (M)", price:160},{name:"Trim with Blowdry (L)", price:240},{name:"Trim with Blowdry (XL)", price:200},
+    {name:"Trim without Blowdry (S)", price:55},{name:"Trim without Blowdry (M)", price:140},{name:"Trim without Blowdry (L)", price:210},{name:"Trim without Blowdry (XL)", price:170},
+    {name:"Fringe Cut", price:130},{name:"Ironing / Curling", price:160},{name:"Upstyle", price:200}
+  ],
+  "Hair Color": [
+    {name:"Roots Color (S)", price:200},{name:"Roots Color (M)", price:520},{name:"Roots Color (L)", price:620},{name:"Roots Color (XL)", price:720},{name:"Roots Color (XXL)", price:820},
+    {name:"Organic Roots Color (S)", price:230},{name:"Organic Roots Color (M)", price:550},{name:"Organic Roots Color (L)", price:650},{name:"Organic Roots Color (XL)", price:750},{name:"Organic Roots Color (XXL)", price:850},
+    {name:"Crazy Color Ombre (S)", price:420},{name:"Crazy Color Ombre (M)", price:400},{name:"Crazy Color Ombre (L)", price:500},{name:"Crazy Color Ombre (XL)", price:600},{name:"Crazy Color Ombre (XXL)", price:700},
+    {name:"Full Head Highlights (S)", price:450},{name:"Full Head Highlights (M)", price:720},{name:"Full Head Highlights (L)", price:820},{name:"Full Head Highlights (XL)", price:920},{name:"Full Head Highlights (XXL)", price:1020},
+    {name:"Full Color (S)", price:300},{name:"Full Color (M)", price:600},{name:"Full Color (L)", price:700},{name:"Full Color (XL)", price:800},{name:"Full Color (XXL)", price:900},
+    {name:"Ombre / Balayage (S)", price:620},{name:"Ombre / Balayage (M)", price:450},{name:"Ombre / Balayage (L)", price:550},{name:"Ombre / Balayage (XL)", price:650},{name:"Ombre / Balayage (XXL)", price:750},
+    {name:"Blonde Highlights", price:500},{name:"Organic Full Color", price:350}
+  ],
+  "Nail Extensions": [
+    {name:"Natural Set Gel / Acrylic", price:300},{name:"Natural Overlay Gel / Acrylic", price:280},{name:"Natural Refill Gel / Acrylic", price:230},
+    {name:"Extension Removal", price:100},{name:"Natural Overlay Nail Repair", price:37},{name:"Extension Nail Repair", price:40}
+  ],
+  "Manicure & Pedicure": [
+    {name:"Russian Manicure", price:60},{name:"Russian Pedicure", price:70},{name:"Spa Manicure", price:35},{name:"Spa Pedicure", price:35},
+    {name:"Gelish Manicure", price:137},{name:"Gelish Pedicure", price:147},{name:"Classic Manicure", price:74},{name:"Classic Pedicure", price:84},
+    {name:"Russian Gelish Manicure", price:200},{name:"Russian Gelish Pedicure", price:210},{name:"Gelish Polish Hands", price:94},{name:"Gelish Polish Feet", price:104},
+    {name:"Gelish Removal Hands/Feet", price:45},{name:"Ingrown Removal", price:50},{name:"Polish Change Hands", price:140},{name:"Polish Change Feet", price:160}
+  ],
+  "Nail Art": [
+    {name:"Classic French", price:80},{name:"Extension French", price:40},{name:"Cat Eye", price:90},{name:"Chrome", price:90},{name:"Ombre", price:90},
+    {name:"Nail Art (per nail)", price:20},{name:"Glitter (per nail)", price:10},{name:"Stones (per nail)", price:10},{name:"Sticker (per nail)", price:10}
+  ],
+  "Nail Add‑ons": [
+    {name:"Callus Treatment", price:80},{name:"Scrub Hands", price:60},{name:"Scrub Feet", price:70},{name:"Paraffin Hands", price:90},{name:"Paraffin Feet", price:100},
+    {name:"Cut, Buff & Shine", price:40},{name:"Jelly Spa Hands/Feet", price:60},{name:"Footlogix", price:150}
+  ],
+  "Facials": [
+    {name:"Cleanup", price:250},{name:"Cleansing Facial", price:350},{name:"Vitamin C Facial", price:350},{name:"Hydrating Facial", price:350},
+    {name:"Sensitive Skin Facial", price:350},{name:"Fresh Fruit Organic Facial", price:350},{name:"Whitening Facial", price:350},
+    {name:"Classic Hydradermie", price:450},{name:"Hydradermie Lightening", price:450},{name:"Hydradermie Plus", price:450},{name:"Anti Aging Facial", price:450},
+    {name:"Hydradermie Plus & Lift Deluxe", price:500},{name:"BB Glow Facial", price:500}
+  ],
+  "Massage & Body Treatments": [
+    {name:"Neck & Shoulder Massage (Chair 30m)", price:105},{name:"Foot Massage (Chair 30m)", price:105},{name:"Neck & Shoulder Massage (Room 30m)", price:120},
+    {name:"Foot Massage (Room 45m)", price:120},{name:"Aroma Therapy Massage (45m)", price:250},{name:"Deep Tissue Massage (30m)", price:250},
+    {name:"Slimming/Cellulite Massage (60m)", price:250},{name:"Thai Massage (Dry 60m)", price:325},{name:"Full Body Scrub (60m)", price:400},
+    {name:"Full Body Wrap (60m)", price:400},{name:"Cupping Therapy (60m)", price:425},{name:"Swedish Massage (30m)", price:400}
+  ],
+  "Threading & Lamination": [
+    {name:"Eyebrow Trimming", price:40},{name:"Eyebrow Mousse", price:40},{name:"Upper Lips", price:30},{name:"Forehead Threading", price:30},
+    {name:"Cheek / Chin", price:30},{name:"Sideburn", price:35},{name:"Neck", price:30},{name:"Full Face", price:110},
+    {name:"Brow Lamination", price:250},{name:"Lash Lamination", price:200}
+  ],
+  "Eyelashes & Tinting": [
+    {name:"Natural Lashes Full Set", price:400},{name:"Russian Lashes Full Set", price:500},
+    {name:"Natural Lashes Refill (2w)", price:210},{name:"Natural Lashes Refill (3w)", price:310},{name:"Russian Lashes Refill (2w)", price:310},{name:"Russian Lashes Refill (3w)", price:410},
+    {name:"Lash Removal", price:70},{name:"Brow Tinting", price:65},{name:"Lash Tinting", price:65}
+  ],
+  "Bleaching": [
+    {name:"Upper/Lower Lip", price:25},{name:"Eyebrows", price:70},{name:"Full Face", price:110},{name:"Full Face with Neck", price:150},
+    {name:"Underarms", price:60},{name:"Forehead/Cheek/Chin", price:30},{name:"Full Arms", price:100},{name:"Half Arms", price:60},
+    {name:"Full Legs", price:120},{name:"Half Lower Legs", price:70},{name:"Half Upper Legs", price:80},{name:"Full Back/Front", price:120},
+    {name:"Half Front/Back", price:70},{name:"Full Body", price:350}
+  ],
+  "Waxing": [
+    {name:"Underarms Hard Wax", price:150},{name:"Full Arms", price:360},{name:"Half Arms", price:60},{name:"Full Legs", price:475},
+    {name:"Brazilian Hard Wax", price:60},{name:"Bikini Line Hard Wax", price:80},{name:"Full Body with Bikini Line", price:90},{name:"Full Body with Brazilian", price:105},
+    {name:"Lower Legs", price:70},{name:"Upper Legs", price:80},{name:"Full Back/Front", price:100},{name:"Half Back/Front", price:70},
+    {name:"Eyebrows", price:50},{name:"Upper Lips", price:35},{name:"Nose", price:35},{name:"Forehead", price:35},{name:"Cheek", price:35},
+    {name:"Sideburn", price:40},{name:"Full Face", price:115},{name:"Fingers/Toes", price:20},{name:"Naval", price:20}
+  ],
+  "Makeup": [
+    {name:"Eye Makeup", price:200},{name:"Day Makeup", price:325},{name:"Evening Makeup", price:425},{name:"Bridal Makeup", price:1000}
+  ],
+  "Kids Services": [
+    {name:"Manicure", price:45},{name:"Pedicure", price:50},{name:"Hair Cut (3–6y)", price:80},{name:"Hair Cut with Blowdry (3–6y)", price:110},
+    {name:"Hair Cut (7–12y)", price:100},{name:"Hair Cut with Blowdry (7–12y)", price:130}
+  ]
+};
+
+const bCategory = document.getElementById('bCategory');
+const bService = document.getElementById('bService');
+const bPriceDisplay = document.getElementById('bPriceDisplay');
+
+bCategory.addEventListener('change', function() {
+  const cat = this.value;
+  bService.innerHTML = '';
+  bPriceDisplay.style.display = 'none';
+  bPriceDisplay.textContent = '';
+  if (cat && menuData[cat]) {
+    bService.disabled = false;
+    bService.innerHTML = '<option value="">Select a service</option>';
+    menuData[cat].forEach((s, idx) => {
+      const opt = document.createElement('option');
+      opt.value = s.name;
+      opt.textContent = `${s.name} – AED ${s.price}`;
+      opt.dataset.price = s.price;
+      bService.appendChild(opt);
+    });
+  } else {
+    bService.disabled = true;
+    bService.innerHTML = '<option value="">Select a category first</option>';
   }
-  const msg=document.getElementById('bookingMsg');
-  msg.style.display='block';msg.style.borderColor='var(--gold)';msg.style.color='var(--gold)';
-  msg.textContent=`✓ Thank you ${name}! Your ${service} is provisionally booked for ${date} at ${selectedTime}. We will confirm via WhatsApp shortly.`;
-  const text=`Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0ADate: ${date}%0ATime: ${selectedTime}%0APhone: ${encodeURIComponent(phone)}`;
+});
+
+bService.addEventListener('change', function() {
+  const selectedOpt = this.options[this.selectedIndex];
+  if (selectedOpt && selectedOpt.dataset.price) {
+    bPriceDisplay.textContent = `Price: AED ${selectedOpt.dataset.price}`;
+    bPriceDisplay.style.display = 'block';
+  } else {
+    bPriceDisplay.style.display = 'none';
+    bPriceDisplay.textContent = '';
+  }
+});
+
+window.submitBooking = function() {
+  const name = document.getElementById('bName').value;
+  const phone = document.getElementById('bPhone').value;
+  const service = bService.value;
+  const date = document.getElementById('bDate').value;
+  const selectedOpt = bService.options[bService.selectedIndex];
+  const price = selectedOpt && selectedOpt.dataset.price ? selectedOpt.dataset.price : '';
+  if (!name || !phone || !service || !date || !selectedTime) {
+    const msg = document.getElementById('bookingMsg');
+    msg.style.display = 'block';
+    msg.style.borderColor = 'rgba(220,80,80,0.5)';
+    msg.style.color = 'rgba(180,50,50,0.9)';
+    msg.textContent = 'Please fill in all required fields and select a time slot.';
+    return;
+  }
+  const msg = document.getElementById('bookingMsg');
+  msg.style.display = 'block';
+  msg.style.borderColor = 'var(--gold)';
+  msg.style.color = 'var(--gold)';
+  msg.textContent = `✓ Thank you ${name}! Your ${service} (AED ${price}) is provisionally booked for ${date} at ${selectedTime}. We will confirm via WhatsApp shortly.`;
+  const text = `Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0APrice: AED ${price}%0ADate: ${date}%0ATime: ${selectedTime}%0APhone: ${encodeURIComponent(phone)}`;
   setTimeout(()=>window.open(`https://wa.me/971XXXXXXXXX?text=${text}`,'_blank'),1500);
 };
-window.whatsappBook=function(e){
+
+window.whatsappBook = function(e) {
   e.preventDefault();
-  const name=document.getElementById('bName').value||'Guest';
-  const service=document.getElementById('bService').value||'General Enquiry';
-  const date=document.getElementById('bDate').value||'TBD';
-  const text=`Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0ADate: ${date}%0ATime: ${selectedTime||'Flexible'}`;
+  const name = document.getElementById('bName').value || 'Guest';
+  const service = bService.value || 'General Enquiry';
+  const date = document.getElementById('bDate').value || 'TBD';
+  const selectedOpt = bService.options[bService.selectedIndex];
+  const price = selectedOpt && selectedOpt.dataset.price ? selectedOpt.dataset.price : '';
+  const text = `Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AService: ${encodeURIComponent(service)}%0APrice: AED ${price}%0ADate: ${date}%0ATime: ${selectedTime||'Flexible'}`;
   window.open(`https://wa.me/971XXXXXXXXX?text=${text}`,'_blank');
 };
 
