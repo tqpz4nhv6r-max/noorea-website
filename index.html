@@ -65,7 +65,7 @@ body{
 .announcement-bar{position:fixed;top:0;left:0;right:0;z-index:110;background:var(--gold);color:#fff;text-align:center;font-size:0.7rem;letter-spacing:0.15em;padding:0.6rem 1rem;font-family:var(--sans);font-weight:400;display:flex;align-items:center;justify-content:center;gap:0.8rem}
 .announcement-bar .close-bar{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;line-height:1;padding:0;margin-left:1rem}
 
-/* Sticky floating coupon banner */
+/* Sticky floating coupon */
 .sticky-coupon{position:fixed;bottom:20px;right:20px;z-index:120;background:var(--dark);border:1px solid var(--gold);color:var(--gold-pale);padding:0.8rem 1.2rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:flex;align-items:center;gap:0.8rem;max-width:260px}
 .sticky-coupon .code{color:var(--gold-bright);font-weight:500;letter-spacing:0.1em}
 .sticky-coupon .close-sticky{background:none;border:none;color:var(--gold-dim);font-size:1rem;cursor:pointer}
@@ -1686,7 +1686,7 @@ function updateMembershipUI() {
     document.getElementById('couponInput').value = '';
     document.getElementById('couponMsg').style.display = 'none';
   }
-  updateServiceList(); // re-calc discounts
+  updateServiceList();
 }
 
 // Booking submit
