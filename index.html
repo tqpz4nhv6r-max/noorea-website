@@ -39,6 +39,7 @@ body{
   line-height:1.7;
   overflow-x:hidden;
   cursor:none;
+  padding-top:40px;
 }
 
 /* Custom cursor */
@@ -60,8 +61,25 @@ body{
 @keyframes fadeIn{to{opacity:1}}
 @keyframes lineGrow{to{width:180px}}
 
+/* Announcement bar */
+.announcement-bar{position:fixed;top:0;left:0;right:0;z-index:110;background:var(--gold);color:#fff;text-align:center;font-size:0.7rem;letter-spacing:0.15em;padding:0.6rem 1rem;font-family:var(--sans);font-weight:400;display:flex;align-items:center;justify-content:center;gap:0.8rem}
+.announcement-bar .close-bar{background:none;border:none;color:#fff;font-size:1.2rem;cursor:pointer;line-height:1;padding:0;margin-left:1rem}
+
+/* Sticky floating coupon banner */
+.sticky-coupon{position:fixed;bottom:20px;right:20px;z-index:120;background:var(--dark);border:1px solid var(--gold);color:var(--gold-pale);padding:0.8rem 1.2rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;box-shadow:0 4px 20px rgba(0,0,0,0.2);display:flex;align-items:center;gap:0.8rem;max-width:260px}
+.sticky-coupon .code{color:var(--gold-bright);font-weight:500;letter-spacing:0.1em}
+.sticky-coupon .close-sticky{background:none;border:none;color:var(--gold-dim);font-size:1rem;cursor:pointer}
+
+/* Exit intent popup */
+.exit-popup{position:fixed;inset:0;background:rgba(26,18,8,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:2rem;visibility:hidden;opacity:0;transition:0.3s}
+.exit-popup.open{visibility:visible;opacity:1}
+.exit-popup .popup-content{background:var(--bg);padding:2.5rem;max-width:420px;text-align:center;border:1px solid var(--gold);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.exit-popup .popup-content h3{font-family:var(--serif);font-size:1.8rem;color:var(--dark);margin-bottom:1rem}
+.exit-popup .popup-content .popup-code{font-family:var(--sans);font-size:1.2rem;letter-spacing:0.2em;color:var(--gold);margin:1rem 0}
+.exit-popup .popup-close{background:var(--gold);color:#fff;border:none;padding:0.8rem 2rem;margin-top:1rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.2em}
+
 /* Nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.8rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s ease}
+nav{position:fixed;top:40px;left:0;right:0;z-index:100;padding:1.8rem 5%;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s ease}
 nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);padding:1.2rem 5%;border-bottom:1px solid var(--glass-border);box-shadow:0 1px 20px rgba(184,137,42,0.08)}
 .nav-logo{font-family:var(--serif);font-size:1.6rem;font-weight:300;letter-spacing:0.3em;color:var(--gold);text-decoration:none}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
@@ -88,6 +106,7 @@ nav.scrolled{background:rgba(255,255,255,0.96);backdrop-filter:blur(20px);paddin
 .btn-ghost{border:1px solid var(--glass-border);color:var(--text);font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;padding:1rem 2.4rem;text-decoration:none;font-family:var(--sans);font-weight:300;transition:all 0.35s;display:inline-block;background:rgba(255,255,255,0.6)}
 .btn-ghost:hover{border-color:var(--gold);color:var(--gold);background:rgba(255,255,255,0.9)}
 @keyframes heroReveal{to{opacity:1;transform:translateY(0)}}
+.hero-promo-badge{display:inline-block;background:var(--gold);color:#fff;font-size:0.6rem;letter-spacing:0.3em;padding:0.4rem 1.2rem;margin-top:1.5rem;text-transform:uppercase}
 .hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.6rem;opacity:0;animation:fadeIn 1s 3.2s forwards}
 .hero-scroll span{font-size:0.58rem;letter-spacing:0.4em;color:var(--text-muted);text-transform:uppercase}
 .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s infinite}
@@ -222,6 +241,14 @@ section{padding:clamp(5rem,12vw,10rem) 5%}
 .selected-services .service-item:last-child{border-bottom:none}
 .selected-services .remove-btn{background:none;border:none;color:var(--gold-dim);cursor:pointer;font-size:0.8rem;margin-left:0.8rem}
 .total-price{margin-top:0.8rem;font-size:0.9rem;font-weight:400;color:var(--gold);letter-spacing:0.05em}
+.coupon-row{display:flex;gap:0.5rem;align-items:center;margin-top:0.5rem}
+.coupon-row input{flex:1;border:none;border-bottom:1px solid var(--glass-border);padding:0.5rem 0;background:transparent;color:var(--text);font-family:var(--sans);font-size:0.85rem}
+.coupon-row input:focus{outline:none;border-bottom-color:var(--gold)}
+.coupon-btn{background:var(--gold);color:#fff;border:none;padding:0.5rem 1.2rem;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:0.3s}
+.coupon-btn:hover{background:var(--gold-light)}
+.discount-breakdown{margin-top:0.8rem;font-size:0.78rem;color:var(--gold);display:none}
+.discount-breakdown .line{display:flex;justify-content:space-between;margin:0.2rem 0}
+.discount-breakdown .final{font-weight:500;margin-top:0.4rem;border-top:1px solid var(--glass-border);padding-top:0.4rem}
 
 /* Gallery */
 #gallery{background:var(--bg3);overflow:hidden}
@@ -329,7 +356,7 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
 .reveal-delay-3{transition-delay:0.3s}
 .reveal-delay-4{transition-delay:0.4s}
 
-/* Modal */
+/* Modals */
 .modal-overlay{position:fixed;inset:0;background:rgba(26,18,8,0.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:2rem;visibility:hidden;opacity:0;transition:visibility 0.3s,opacity 0.3s}
 .modal-overlay.open{visibility:visible;opacity:1}
 .modal-content{background:var(--bg);max-width:800px;width:100%;max-height:85vh;overflow-y:auto;padding:3rem 2.5rem;border:1px solid var(--glass-border);position:relative;box-shadow:0 12px 50px rgba(0,0,0,0.2)}
@@ -337,18 +364,13 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
 .modal-content h2{font-family:var(--serif);font-size:2rem;font-weight:300;color:var(--dark);margin-bottom:1.5rem}
 .modal-content h3{font-family:var(--serif);font-size:1.3rem;font-weight:300;color:var(--gold);margin:1.8rem 0 0.8rem}
 .modal-content p,.modal-content li{font-size:0.9rem;color:var(--text-muted);line-height:1.8;margin-bottom:0.8rem}
-.modal-content ul{padding-left:1.5rem;margin-bottom:1rem}
 
-/* Glam Pass extended */
+/* Glam Pass benefits */
 .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;max-width:900px;margin:3rem auto;text-align:left}
 .benefit-item{display:flex;gap:1rem;align-items:flex-start}
 .benefit-icon{width:40px;height:40px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.2rem;flex-shrink:0}
-.glam-faq{max-width:700px;margin:4rem auto 0;text-align:left}
-.glam-faq details{border-bottom:1px solid var(--glass-border);padding:1.2rem 0}
-.glam-faq summary{font-family:var(--serif);font-size:1.1rem;font-weight:300;cursor:none;list-style:none;outline:none;color:var(--dark)}
-.glam-faq summary::after{content:'+';float:right;color:var(--gold)}
-.glam-faq details[open] summary::after{content:'−'}
-.glam-faq .faq-content{padding:1rem 0 0;color:var(--text-muted);font-size:0.85rem;line-height:1.8}
+.glam-dashboard{display:none;max-width:700px;margin:2rem auto;background:var(--bg);border:1px solid var(--glass-border);padding:2rem;text-align:left}
+.glam-dashboard .member-badge{display:inline-block;background:var(--gold-pale);color:var(--gold-dim);font-size:0.65rem;letter-spacing:0.3em;padding:0.3rem 1rem;margin-bottom:1rem;text-transform:uppercase}
 
 /* Responsive */
 @media(max-width:1024px){
@@ -397,6 +419,12 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
     <div class="loader-sub">Home Salon & Wellness</div>
 </div>
 
+<!-- Announcement Bar -->
+<div class="announcement-bar" id="announcementBar">
+    🎉 New Client Exclusive: Enjoy 20% OFF your first booking with code <strong>NEWTONOOREA</strong>
+    <button class="close-bar" onclick="document.getElementById('announcementBar').style.display='none'">&times;</button>
+</div>
+
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
     <a href="#hero">Home</a>
@@ -439,12 +467,30 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
             <a href="#booking" class="btn-primary">Reserve Your Session</a>
             <a href="#services" class="btn-ghost">Explore Services</a>
         </div>
+        <div class="hero-promo-badge">20% OFF Your First Beauty Ritual — Code NEWTONOOREA</div>
     </div>
     <div class="hero-scroll">
         <span>Scroll to explore</span>
         <div class="scroll-line"></div>
     </div>
 </section>
+
+<!-- Sticky floating coupon banner -->
+<div class="sticky-coupon" id="stickyCoupon">
+    <span>Your 20% OFF code</span>
+    <span class="code">NEWTONOOREA</span>
+    <button class="close-sticky" onclick="document.getElementById('stickyCoupon').style.display='none'">✕</button>
+</div>
+
+<!-- Exit intent popup -->
+<div class="exit-popup" id="exitPopup">
+    <div class="popup-content">
+        <h3>Don't leave yet!</h3>
+        <p style="color:var(--text-muted);font-size:0.9rem">Enjoy 20% OFF your first booking</p>
+        <div class="popup-code">NEWTONOOREA</div>
+        <button class="popup-close" onclick="document.getElementById('exitPopup').classList.remove('open')">Continue to Book</button>
+    </div>
+</div>
 
 <!-- Marquee -->
 <div class="marquee-section">
@@ -921,7 +967,7 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
         <div class="benefit-item"><div class="benefit-icon">✦</div><div><h4 style="font-weight:300;color:var(--dark);margin-bottom:0.3rem">Complimentary Consults</h4><p style="font-size:0.75rem;color:var(--text-muted)">One-on-one beauty and wellness planning.</p></div></div>
         <div class="benefit-item"><div class="benefit-icon">✦</div><div><h4 style="font-weight:300;color:var(--dark);margin-bottom:0.3rem">Early Access</h4><p style="font-size:0.75rem;color:var(--text-muted)">Be first to try new treatments and products.</p></div></div>
     </div>
-    <div class="plans-grid">
+    <div id="glamPlans" class="plans-grid">
         <div class="plan-card reveal">
             <div class="plan-tier">Basic</div>
             <div class="plan-name">Essential</div>
@@ -935,7 +981,7 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
                 <li>Complimentary nail treatment (quarterly)</li>
                 <li>Member-only promotions</li>
             </ul>
-            <button class="plan-cta" onclick="scrollToBooking()">Get Started</button>
+            <button class="plan-cta" onclick="purchasePlan('Essential',299,10,2)">Get Started</button>
         </div>
         <div class="plan-card featured reveal reveal-delay-1">
             <div class="plan-featured-badge">Most Popular</div>
@@ -953,7 +999,7 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
                 <li>Exclusive product gifts</li>
                 <li>Dedicated beauty concierge</li>
             </ul>
-            <button class="plan-cta" onclick="scrollToBooking()">Join Luxe</button>
+            <button class="plan-cta" onclick="purchasePlan('Luxe',599,20,5)">Join Luxe</button>
         </div>
         <div class="plan-card reveal reveal-delay-2">
             <div class="plan-tier">Ultra Luxury</div>
@@ -971,15 +1017,23 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
                 <li>Guest passes (2 per month)</li>
                 <li>Invite-only beauty events</li>
             </ul>
-            <button class="plan-cta" onclick="scrollToBooking()">Go Prestige</button>
+            <button class="plan-cta" onclick="purchasePlan('Prestige',1299,30,999)">Go Prestige</button>
         </div>
     </div>
-    <div class="glam-faq reveal">
+    <div class="glam-dashboard" id="glamDashboard">
+        <span class="member-badge">Active Glam Pass Member</span>
+        <h4 id="memberPlanName">Luxe</h4>
+        <p style="color:var(--text-muted);margin-bottom:0.5rem">Membership: <strong id="memberPlanType">Monthly</strong> — <span id="memberExpiry">Expires 30/07/2025</span></p>
+        <p style="color:var(--text-muted)">Benefits remaining this month: <strong id="memberBenefitsLeft">5 services</strong></p>
+        <p style="color:var(--gold);font-weight:500;margin-top:0.8rem" id="memberSavings">Savings earned: AED 0</p>
+        <div style="margin-top:1.5rem"><button class="btn-ghost" onclick="cancelMembership()" style="padding:0.6rem 1.5rem">Cancel Membership</button></div>
+    </div>
+    <div class="glam-faq reveal" style="max-width:700px;margin:4rem auto 0;text-align:left">
         <h3 style="font-family:var(--serif);font-weight:300;color:var(--dark);margin-bottom:2rem">Frequently Asked Questions</h3>
-        <details><summary>How do I book my monthly services?</summary><div class="faq-content">Simply WhatsApp your dedicated concierge or use our online booking form. Your credits reset on the 1st of each month.</div></details>
-        <details><summary>Can I roll over unused credits?</summary><div class="faq-content">Up to 2 unused services can be rolled over to the next month on Luxe and Prestige plans.</div></details>
-        <details><summary>Is there a cancellation fee?</summary><div class="faq-content">No cancellation fee for members. You can cancel anytime with 30 days notice.</div></details>
-        <details><summary>Do you offer couples or group bookings?</summary><div class="faq-content">Yes! Prestige members enjoy two guest passes per month. Additional guests are welcome at member rates.</div></details>
+        <details style="border-bottom:1px solid var(--glass-border);padding:1.2rem 0"><summary style="font-family:var(--serif);font-size:1.1rem;cursor:none;list-style:none;color:var(--dark)">How do I book my monthly services?</summary><div style="padding:1rem 0 0;color:var(--text-muted);font-size:0.85rem;line-height:1.8">Simply WhatsApp your dedicated concierge or use our online booking form. Your credits reset on the 1st of each month.</div></details>
+        <details style="border-bottom:1px solid var(--glass-border);padding:1.2rem 0"><summary style="font-family:var(--serif);font-size:1.1rem;cursor:none;list-style:none;color:var(--dark)">Can I roll over unused credits?</summary><div style="padding:1rem 0 0;color:var(--text-muted);font-size:0.85rem;line-height:1.8">Up to 2 unused services can be rolled over to the next month on Luxe and Prestige plans.</div></details>
+        <details style="border-bottom:1px solid var(--glass-border);padding:1.2rem 0"><summary style="font-family:var(--serif);font-size:1.1rem;cursor:none;list-style:none;color:var(--dark)">Is there a cancellation fee?</summary><div style="padding:1rem 0 0;color:var(--text-muted);font-size:0.85rem;line-height:1.8">No cancellation fee for members. You can cancel anytime with 30 days notice.</div></details>
+        <details style="border-bottom:1px solid var(--glass-border);padding:1.2rem 0"><summary style="font-family:var(--serif);font-size:1.1rem;cursor:none;list-style:none;color:var(--dark)">Do you offer couples or group bookings?</summary><div style="padding:1rem 0 0;color:var(--text-muted);font-size:0.85rem;line-height:1.8">Yes! Prestige members enjoy two guest passes per month. Additional guests are welcome at member rates.</div></details>
     </div>
     <div class="reveal" style="margin-top:3rem"><a href="#booking" class="btn-primary">Join the Glam Pass</a></div>
 </section>
@@ -1045,6 +1099,19 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
                 <p style="font-size:0.75rem;color:var(--text-muted);text-align:center">No services added yet.</p>
             </div>
             <div class="total-price" id="totalPriceDisplay"></div>
+            <div class="form-group" style="margin-top:1.5rem">
+                <label class="form-label">Coupon Code</label>
+                <div class="coupon-row">
+                    <input type="text" id="couponInput" placeholder="Enter code">
+                    <button class="coupon-btn" onclick="applyCoupon()">Apply</button>
+                </div>
+                <div class="discount-breakdown" id="discountBreakdown">
+                    <div class="line"><span>Services Total:</span><span id="origTotal">AED 0</span></div>
+                    <div class="line"><span>Discount (20%):</span><span id="discountAmount">-AED 0</span></div>
+                    <div class="line final"><span>Final Total:</span><span id="finalTotal">AED 0</span></div>
+                </div>
+                <p id="couponMsg" style="font-size:0.72rem;color:var(--gold);margin-top:0.3rem;display:none"></p>
+            </div>
             <div class="form-group">
                 <label class="form-label">Preferred Date</label>
                 <input type="date" class="form-input" id="bDate">
@@ -1172,30 +1239,13 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
         <h2 class="vip-title reveal">Join the <em>NOOREA</em><br>Inner Circle</h2>
         <p class="section-sub reveal reveal-delay-1" style="margin:1.5rem auto">Become a VIP member and access the most exclusive beauty experience in Dubai. Limited memberships available.</p>
         <div class="vip-perks reveal reveal-delay-2">
-            <div class="vip-perk">
-                <div class="vip-perk-icon">✦</div>
-                <div class="vip-perk-text">Priority Access</div>
-            </div>
-            <div class="vip-perk">
-                <div class="vip-perk-icon">✦</div>
-                <div class="vip-perk-text">Exclusive Events</div>
-            </div>
-            <div class="vip-perk">
-                <div class="vip-perk-icon">✦</div>
-                <div class="vip-perk-text">Personal Concierge</div>
-            </div>
-            <div class="vip-perk">
-                <div class="vip-perk-icon">✦</div>
-                <div class="vip-perk-text">Premium Gifts</div>
-            </div>
-            <div class="vip-perk">
-                <div class="vip-perk-icon">✦</div>
-                <div class="vip-perk-text">Unlimited Services</div>
-            </div>
+            <div class="vip-perk"><div class="vip-perk-icon">✦</div><div class="vip-perk-text">Priority Access</div></div>
+            <div class="vip-perk"><div class="vip-perk-icon">✦</div><div class="vip-perk-text">Exclusive Events</div></div>
+            <div class="vip-perk"><div class="vip-perk-icon">✦</div><div class="vip-perk-text">Personal Concierge</div></div>
+            <div class="vip-perk"><div class="vip-perk-icon">✦</div><div class="vip-perk-text">Premium Gifts</div></div>
+            <div class="vip-perk"><div class="vip-perk-icon">✦</div><div class="vip-perk-text">Unlimited Services</div></div>
         </div>
-        <div class="vip-border reveal reveal-delay-3">
-            <a href="#glampass">Explore Prestige Membership</a>
-        </div>
+        <div class="vip-border reveal reveal-delay-3"><a href="#glampass">Explore Prestige Membership</a></div>
     </div>
 </section>
 
@@ -1242,32 +1292,16 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
         <p class="section-sub reveal reveal-delay-2">We'd love to hear from you. Reach out for bookings, membership enquiries, or to simply say hello.</p>
         <div class="contact-links">
             <a href="https://wa.me/971XXXXXXXXX" class="contact-link reveal">
-                <div class="contact-link-icon">✉</div>
-                <div>
-                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">WhatsApp</div>
-                    <div>+971 XX XXX XXXX</div>
-                </div>
+                <div class="contact-link-icon">✉</div><div><div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">WhatsApp</div><div>+971 XX XXX XXXX</div></div>
             </a>
             <a href="mailto:hello@noorea.ae" class="contact-link reveal reveal-delay-1">
-                <div class="contact-link-icon">@</div>
-                <div>
-                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Email</div>
-                    <div>hello@noorea.ae</div>
-                </div>
+                <div class="contact-link-icon">@</div><div><div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Email</div><div>hello@noorea.ae</div></div>
             </a>
             <a href="#" class="contact-link reveal reveal-delay-2">
-                <div class="contact-link-icon">◈</div>
-                <div>
-                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Service Area</div>
-                    <div>All Dubai, Sharjah, Abu Dhabi</div>
-                </div>
+                <div class="contact-link-icon">◈</div><div><div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Service Area</div><div>All Dubai, Sharjah, Abu Dhabi</div></div>
             </a>
             <a href="#" class="contact-link reveal reveal-delay-3">
-                <div class="contact-link-icon">◷</div>
-                <div>
-                    <div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Hours</div>
-                    <div>Daily 9:00 AM – 9:00 PM</div>
-                </div>
+                <div class="contact-link-icon">◷</div><div><div style="font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:0.2rem">Hours</div><div>Daily 9:00 AM – 9:00 PM</div></div>
             </a>
         </div>
     </div>
@@ -1319,98 +1353,65 @@ footer{background:var(--dark);border-top:1px solid rgba(184,137,42,0.3);padding:
         <div class="footer-col">
             <h4>Services</h4>
             <ul class="footer-links">
-                <li><a href="#services">Hair Styling</a></li>
-                <li><a href="#services">Blow Dry Bar</a></li>
-                <li><a href="#services">Nail Artistry</a></li>
-                <li><a href="#services">Massage Therapy</a></li>
-                <li><a href="#services">Luxury Facials</a></li>
-                <li><a href="#services">Bridal Packages</a></li>
+                <li><a href="#services">Hair Styling</a></li><li><a href="#services">Blow Dry Bar</a></li><li><a href="#services">Nail Artistry</a></li><li><a href="#services">Massage Therapy</a></li><li><a href="#services">Luxury Facials</a></li><li><a href="#services">Bridal Packages</a></li>
             </ul>
         </div>
         <div class="footer-col">
             <h4>Membership</h4>
             <ul class="footer-links">
-                <li><a href="#glampass">Essential Pass</a></li>
-                <li><a href="#glampass">Luxe Pass</a></li>
-                <li><a href="#glampass">Prestige Pass</a></li>
-                <li><a href="#vip">VIP Inner Circle</a></li>
-                <li><a href="#booking">Gift Cards</a></li>
+                <li><a href="#glampass">Essential Pass</a></li><li><a href="#glampass">Luxe Pass</a></li><li><a href="#glampass">Prestige Pass</a></li><li><a href="#vip">VIP Inner Circle</a></li><li><a href="#booking">Gift Cards</a></li>
             </ul>
         </div>
         <div class="footer-col">
             <h4>Company</h4>
             <ul class="footer-links">
-                <li><a href="#about">About NOOREA</a></li>
-                <li><a href="#blog">The Journal</a></li>
-                <li><a href="#testimonials">Client Stories</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Press</a></li>
+                <li><a href="#about">About NOOREA</a></li><li><a href="#blog">The Journal</a></li><li><a href="#testimonials">Client Stories</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li>
             </ul>
         </div>
     </div>
     <div class="footer-bottom">
         <div class="footer-copy">© 2025 NOOREA Home Salon & Wellness. All rights reserved.</div>
-        <div class="footer-legal">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
-            <a href="#">Cookie Policy</a>
-        </div>
+        <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Policy</a></div>
     </div>
 </footer>
 
-<!-- Modals -->
+<!-- Blog Modals -->
 <div class="modal-overlay" id="modal-bridal"><div class="modal-content">
     <button class="modal-close" onclick="closeModal('modal-bridal')">&times;</button>
     <h2>How to Plan Your Perfect Wedding Day Beauty Timeline</h2>
     <p>Every bride deserves a flawless beauty journey. Follow this timeline to look and feel your best.</p>
-    <h3>6 Months Before</h3>
-    <p>Start monthly facials to address any skin concerns. Begin a consistent skincare routine and consider lash extensions.</p>
-    <h3>3 Months Before</h3>
-    <p>Schedule your bridal hair and makeup trial. Book your stylist and discuss the look you envision.</p>
-    <h3>1 Month Before</h3>
-    <p>Finalize your beauty plan. Try your final hair color, get a trim, and test your makeup with your dress.</p>
-    <h3>1 Week Before</h3>
-    <p>Hydrate, sleep, and avoid any new treatments. A gentle facial and a classic manicure are perfect now.</p>
-    <h3>Wedding Day</h3>
-    <p>Trust your professional team. Keep a touch‑up kit handy and enjoy every moment.</p>
+    <h3>6 Months Before</h3><p>Start monthly facials to address any skin concerns. Begin a consistent skincare routine and consider lash extensions.</p>
+    <h3>3 Months Before</h3><p>Schedule your bridal hair and makeup trial. Book your stylist and discuss the look you envision.</p>
+    <h3>1 Month Before</h3><p>Finalize your beauty plan. Try your final hair color, get a trim, and test your makeup with your dress.</p>
+    <h3>1 Week Before</h3><p>Hydrate, sleep, and avoid any new treatments. A gentle facial and a classic manicure are perfect now.</p>
+    <h3>Wedding Day</h3><p>Trust your professional team. Keep a touch‑up kit handy and enjoy every moment.</p>
 </div></div>
 
 <div class="modal-overlay" id="modal-skincare"><div class="modal-content">
     <button class="modal-close" onclick="closeModal('modal-skincare')">&times;</button>
-    <h2>The Ultimate Skincare Routine for Dubai’s Climate</h2>
-    <p>Dubai's unique conditions demand a tailored approach. Here’s how to keep your skin healthy year‑round.</p>
-    <h3>Morning Routine</h3>
-    <ul><li>Gentle cleanse with a hydrating gel.</li><li>Vitamin C serum for antioxidant protection.</li><li>Light moisturizer with SPF 50.</li></ul>
-    <h3>Evening Routine</h3>
-    <ul><li>Double cleanse to remove makeup and pollutants.</li><li>Retinol or night serum (alternate with hyaluronic acid).</li><li>Rich night cream to combat air‑conditioning dryness.</li></ul>
-    <h3>Sun Protection</h3>
-    <p>Reapply SPF every 3 hours when outdoors. Use a mineral sunscreen for sensitive skin.</p>
-    <h3>Hydration Tips</h3>
-    <p>Drink at least 2 litres of water daily. Incorporate a hydrating facial every 4 weeks.</p>
-    <h3>Seasonal Advice</h3>
-    <p>In summer, lighten products; in winter, add richer oils. Exfoliate weekly with gentle enzymes.</p>
+    <h2>The Ultimate Skincare Routine for Dubai's Climate</h2>
+    <p>Dubai's unique conditions demand a tailored approach. Here's how to keep your skin healthy year‑round.</p>
+    <h3>Morning Routine</h3><ul><li>Gentle cleanse with a hydrating gel.</li><li>Vitamin C serum for antioxidant protection.</li><li>Light moisturizer with SPF 50.</li></ul>
+    <h3>Evening Routine</h3><ul><li>Double cleanse to remove makeup and pollutants.</li><li>Retinol or night serum (alternate with hyaluronic acid).</li><li>Rich night cream to combat air‑conditioning dryness.</li></ul>
+    <h3>Sun Protection</h3><p>Reapply SPF every 3 hours when outdoors. Use a mineral sunscreen for sensitive skin.</p>
+    <h3>Hydration Tips</h3><p>Drink at least 2 litres of water daily. Incorporate a hydrating facial every 4 weeks.</p>
+    <h3>Seasonal Advice</h3><p>In summer, lighten products; in winter, add richer oils. Exfoliate weekly with gentle enzymes.</p>
 </div></div>
 
 <div class="modal-overlay" id="modal-nails"><div class="modal-content">
     <button class="modal-close" onclick="closeModal('modal-nails')">&times;</button>
-    <h2>2025’s Most Wanted Nail Trends, Ranked by Our Artists</h2>
+    <h2>2025's Most Wanted Nail Trends, Ranked by Our Artists</h2>
     <p>Our experts reveal the styles dominating this year.</p>
-    <h3>1. Chrome Nails</h3>
-    <p>High‑shine metallic finishes in silver, rose gold, and holographic hues.</p>
-    <h3>2. Minimal Luxury</h3>
-    <p>Clean, sheer neutrals with micro details like a single gold stripe or tiny gem.</p>
-    <h3>3. French Variations</h3>
-    <p>Updated classic with coloured tips, double lines, or asymmetrical designs.</p>
-    <h3>4. Pearl Finishes</h3>
-    <p>Soft luminescent effects that catch the light beautifully — perfect for bridal.</p>
-    <h3>5. Bridal Nail Trends</h3>
-    <p>Delicate lace patterns, 3D florals, and subtle ombre whites.</p>
-    <h3>6. Celebrity‑Inspired</h3>
-    <p>Bold shapes, negative space, and personalised initials as seen on red carpets.</p>
+    <h3>1. Chrome Nails</h3><p>High‑shine metallic finishes in silver, rose gold, and holographic hues.</p>
+    <h3>2. Minimal Luxury</h3><p>Clean, sheer neutrals with micro details like a single gold stripe or tiny gem.</p>
+    <h3>3. French Variations</h3><p>Updated classic with coloured tips, double lines, or asymmetrical designs.</p>
+    <h3>4. Pearl Finishes</h3><p>Soft luminescent effects that catch the light beautifully — perfect for bridal.</p>
+    <h3>5. Bridal Nail Trends</h3><p>Delicate lace patterns, 3D florals, and subtle ombre whites.</p>
+    <h3>6. Celebrity‑Inspired</h3><p>Bold shapes, negative space, and personalised initials as seen on red carpets.</p>
 </div></div>
 
 <script>
+// Cursor
 const cursor=document.getElementById('cursor');
 const cursorRing=document.getElementById('cursor-ring');
 let mx=0,my=0,rx=0,ry=0;
@@ -1422,13 +1423,14 @@ document.querySelectorAll('a,button,.service-card,.gallery-item,.time-slot,.plan
   el.addEventListener('mouseleave',()=>{cursorRing.style.transform='translate(-50%,-50%) scale(1)';cursorRing.style.opacity='0.4'});
 });
 
-window.addEventListener('load',()=>{
-  setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2200);
-});
+// Loader
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('hidden')},2200)});
 
+// Nav scroll
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>80)});
 
+// Mobile menu
 const ham=document.getElementById('hamburger');
 const mm=document.getElementById('mobileMenu');
 ham.addEventListener('click',()=>{
@@ -1439,6 +1441,7 @@ ham.addEventListener('click',()=>{
 });
 mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.remove('open')));
 
+// Particles
 const canvas=document.getElementById('hero-canvas');
 const ctx=canvas.getContext('2d');
 let W,H,particles=[];
@@ -1463,134 +1466,54 @@ function draw(){
     ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
     ctx.fillStyle=`rgba(184,137,42,${p.opacity*0.4})`;ctx.fill();
   });
-  particles.forEach((p,i)=>{
-    particles.slice(i+1).forEach(q=>{
-      const d=Math.hypot(p.x-q.x,p.y-q.y);
-      if(d<100){
-        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
-        ctx.strokeStyle=`rgba(184,137,42,${(1-d/100)*0.06})`;ctx.lineWidth=0.5;ctx.stroke();
-      }
-    });
-  });
+  particles.forEach((p,i)=>{particles.slice(i+1).forEach(q=>{
+    const d=Math.hypot(p.x-q.x,p.y-q.y);
+    if(d<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.strokeStyle=`rgba(184,137,42,${(1-d/100)*0.06})`;ctx.lineWidth=0.5;ctx.stroke()}
+  })});
   requestAnimationFrame(draw);
 }
 draw();
 
-document.getElementById('hero').addEventListener('mousemove',e=>{
-  const dx=(e.clientX-window.innerWidth/2)/window.innerWidth;
-  const dy=(e.clientY-window.innerHeight/2)/window.innerHeight;
-  document.querySelector('.hero-content').style.transform=`translate(${dx*12}px,${dy*8}px)`;
-});
-
+// Reveal
 const revealEls=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
-},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.1,rootMargin:'0px 0px -60px 0px'});
 revealEls.forEach(el=>observer.observe(el));
 
+// Testimonials
 let currentSlide=0;
 const slides=document.querySelectorAll('.testimonial-slide');
 const dots=document.querySelectorAll('.dot');
-function goToSlide(n){
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide=n;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
+function goToSlide(n){slides[currentSlide].classList.remove('active');dots[currentSlide].classList.remove('active');currentSlide=n;slides[currentSlide].classList.add('active');dots[currentSlide].classList.add('active')}
 setInterval(()=>goToSlide((currentSlide+1)%slides.length),5000);
 window.goToSlide=goToSlide;
 
+// Time slots
 let selectedTime='';
-window.selectTime=function(btn,time){
-  document.querySelectorAll('.time-slot').forEach(b=>b.classList.remove('selected'));
-  btn.classList.add('selected');selectedTime=time;
-};
+window.selectTime=function(btn,time){document.querySelectorAll('.time-slot').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');selectedTime=time};
+
+// Scroll to booking
 window.scrollToBooking=function(){document.getElementById('booking').scrollIntoView({behavior:'smooth'})};
 
-// ---------- Multi-service booking ----------
+// ---------- MENU DATA ----------
 const menuData = {
-  "Hair Services": [
-    {name:"Wash with Blow Dry (S)", price:110},{name:"Wash with Blow Dry (M)", price:130},{name:"Wash with Blow Dry (L)", price:160},{name:"Wash with Blow Dry (XL)", price:200},{name:"Wash with Blow Dry (XXL)", price:240},
-    {name:"Wash with Paddle Dry (S)", price:190},{name:"Wash with Paddle Dry (M)", price:160},{name:"Wash with Paddle Dry (L)", price:180},{name:"Wash with Paddle Dry (XL)", price:220},{name:"Wash with Paddle Dry (XXL)", price:290},
-    {name:"Blowdry with Extension (S)", price:130},{name:"Blowdry with Extension (M)", price:200},{name:"Blowdry with Extension (L)", price:270},{name:"Blowdry with Extension (XL)", price:220},
-    {name:"Restyle with Blowdry (S)", price:110},{name:"Restyle with Blowdry (M)", price:65},{name:"Restyle with Blowdry (L)", price:85},{name:"Restyle with Blowdry (XL)", price:75},
-    {name:"Trim with Blowdry (S)", price:50},{name:"Trim with Blowdry (M)", price:160},{name:"Trim with Blowdry (L)", price:240},{name:"Trim with Blowdry (XL)", price:200},
-    {name:"Trim without Blowdry (S)", price:55},{name:"Trim without Blowdry (M)", price:140},{name:"Trim without Blowdry (L)", price:210},{name:"Trim without Blowdry (XL)", price:170},
-    {name:"Fringe Cut", price:130},{name:"Ironing / Curling", price:160},{name:"Upstyle", price:200}
-  ],
-  "Hair Color": [
-    {name:"Roots Color (S)", price:200},{name:"Roots Color (M)", price:520},{name:"Roots Color (L)", price:620},{name:"Roots Color (XL)", price:720},{name:"Roots Color (XXL)", price:820},
-    {name:"Organic Roots Color (S)", price:230},{name:"Organic Roots Color (M)", price:550},{name:"Organic Roots Color (L)", price:650},{name:"Organic Roots Color (XL)", price:750},{name:"Organic Roots Color (XXL)", price:850},
-    {name:"Crazy Color Ombre (S)", price:420},{name:"Crazy Color Ombre (M)", price:400},{name:"Crazy Color Ombre (L)", price:500},{name:"Crazy Color Ombre (XL)", price:600},{name:"Crazy Color Ombre (XXL)", price:700},
-    {name:"Full Head Highlights (S)", price:450},{name:"Full Head Highlights (M)", price:720},{name:"Full Head Highlights (L)", price:820},{name:"Full Head Highlights (XL)", price:920},{name:"Full Head Highlights (XXL)", price:1020},
-    {name:"Full Color (S)", price:300},{name:"Full Color (M)", price:600},{name:"Full Color (L)", price:700},{name:"Full Color (XL)", price:800},{name:"Full Color (XXL)", price:900},
-    {name:"Ombre / Balayage (S)", price:620},{name:"Ombre / Balayage (M)", price:450},{name:"Ombre / Balayage (L)", price:550},{name:"Ombre / Balayage (XL)", price:650},{name:"Ombre / Balayage (XXL)", price:750},
-    {name:"Blonde Highlights", price:500},{name:"Organic Full Color", price:350}
-  ],
-  "Nail Extensions": [
-    {name:"Natural Set Gel / Acrylic", price:300},{name:"Natural Overlay Gel / Acrylic", price:280},{name:"Natural Refill Gel / Acrylic", price:230},
-    {name:"Extension Removal", price:100},{name:"Natural Overlay Nail Repair", price:37},{name:"Extension Nail Repair", price:40}
-  ],
-  "Manicure & Pedicure": [
-    {name:"Russian Manicure", price:60},{name:"Russian Pedicure", price:70},{name:"Spa Manicure", price:35},{name:"Spa Pedicure", price:35},
-    {name:"Gelish Manicure", price:137},{name:"Gelish Pedicure", price:147},{name:"Classic Manicure", price:74},{name:"Classic Pedicure", price:84},
-    {name:"Russian Gelish Manicure", price:200},{name:"Russian Gelish Pedicure", price:210},{name:"Gelish Polish Hands", price:94},{name:"Gelish Polish Feet", price:104},
-    {name:"Gelish Removal Hands/Feet", price:45},{name:"Ingrown Removal", price:50},{name:"Polish Change Hands", price:140},{name:"Polish Change Feet", price:160}
-  ],
-  "Nail Art": [
-    {name:"Classic French", price:80},{name:"Extension French", price:40},{name:"Cat Eye", price:90},{name:"Chrome", price:90},{name:"Ombre", price:90},
-    {name:"Nail Art (per nail)", price:20},{name:"Glitter (per nail)", price:10},{name:"Stones (per nail)", price:10},{name:"Sticker (per nail)", price:10}
-  ],
-  "Nail Add‑ons": [
-    {name:"Callus Treatment", price:80},{name:"Scrub Hands", price:60},{name:"Scrub Feet", price:70},{name:"Paraffin Hands", price:90},{name:"Paraffin Feet", price:100},
-    {name:"Cut, Buff & Shine", price:40},{name:"Jelly Spa Hands/Feet", price:60},{name:"Footlogix", price:150}
-  ],
-  "Facials": [
-    {name:"Cleanup", price:250},{name:"Cleansing Facial", price:350},{name:"Vitamin C Facial", price:350},{name:"Hydrating Facial", price:350},
-    {name:"Sensitive Skin Facial", price:350},{name:"Fresh Fruit Organic Facial", price:350},{name:"Whitening Facial", price:350},
-    {name:"Classic Hydradermie", price:450},{name:"Hydradermie Lightening", price:450},{name:"Hydradermie Plus", price:450},{name:"Anti Aging Facial", price:450},
-    {name:"Hydradermie Plus & Lift Deluxe", price:500},{name:"BB Glow Facial", price:500}
-  ],
-  "Massage & Body Treatments": [
-    {name:"Neck & Shoulder Massage (Chair 30m)", price:105},{name:"Foot Massage (Chair 30m)", price:105},{name:"Neck & Shoulder Massage (Room 30m)", price:120},
-    {name:"Foot Massage (Room 45m)", price:120},{name:"Aroma Therapy Massage (45m)", price:250},{name:"Deep Tissue Massage (30m)", price:250},
-    {name:"Slimming/Cellulite Massage (60m)", price:250},{name:"Thai Massage (Dry 60m)", price:325},{name:"Full Body Scrub (60m)", price:400},
-    {name:"Full Body Wrap (60m)", price:400},{name:"Cupping Therapy (60m)", price:425},{name:"Swedish Massage (30m)", price:400}
-  ],
-  "Threading & Lamination": [
-    {name:"Eyebrow Trimming", price:40},{name:"Eyebrow Mousse", price:40},{name:"Upper Lips", price:30},{name:"Forehead Threading", price:30},
-    {name:"Cheek / Chin", price:30},{name:"Sideburn", price:35},{name:"Neck", price:30},{name:"Full Face", price:110},
-    {name:"Brow Lamination", price:250},{name:"Lash Lamination", price:200}
-  ],
-  "Eyelashes & Tinting": [
-    {name:"Natural Lashes Full Set", price:400},{name:"Russian Lashes Full Set", price:500},
-    {name:"Natural Lashes Refill (2w)", price:210},{name:"Natural Lashes Refill (3w)", price:310},{name:"Russian Lashes Refill (2w)", price:310},{name:"Russian Lashes Refill (3w)", price:410},
-    {name:"Lash Removal", price:70},{name:"Brow Tinting", price:65},{name:"Lash Tinting", price:65}
-  ],
-  "Bleaching": [
-    {name:"Upper/Lower Lip", price:25},{name:"Eyebrows", price:70},{name:"Full Face", price:110},{name:"Full Face with Neck", price:150},
-    {name:"Underarms", price:60},{name:"Forehead/Cheek/Chin", price:30},{name:"Full Arms", price:100},{name:"Half Arms", price:60},
-    {name:"Full Legs", price:120},{name:"Half Lower Legs", price:70},{name:"Half Upper Legs", price:80},{name:"Full Back/Front", price:120},
-    {name:"Half Front/Back", price:70},{name:"Full Body", price:350}
-  ],
-  "Waxing": [
-    {name:"Underarms Hard Wax", price:150},{name:"Full Arms", price:360},{name:"Half Arms", price:60},{name:"Full Legs", price:475},
-    {name:"Brazilian Hard Wax", price:60},{name:"Bikini Line Hard Wax", price:80},{name:"Full Body with Bikini Line", price:90},{name:"Full Body with Brazilian", price:105},
-    {name:"Lower Legs", price:70},{name:"Upper Legs", price:80},{name:"Full Back/Front", price:100},{name:"Half Back/Front", price:70},
-    {name:"Eyebrows", price:50},{name:"Upper Lips", price:35},{name:"Nose", price:35},{name:"Forehead", price:35},{name:"Cheek", price:35},
-    {name:"Sideburn", price:40},{name:"Full Face", price:115},{name:"Fingers/Toes", price:20},{name:"Naval", price:20}
-  ],
-  "Makeup": [
-    {name:"Eye Makeup", price:200},{name:"Day Makeup", price:325},{name:"Evening Makeup", price:425},{name:"Bridal Makeup", price:1000}
-  ],
-  "Kids Services": [
-    {name:"Manicure", price:45},{name:"Pedicure", price:50},{name:"Hair Cut (3–6y)", price:80},{name:"Hair Cut with Blowdry (3–6y)", price:110},
-    {name:"Hair Cut (7–12y)", price:100},{name:"Hair Cut with Blowdry (7–12y)", price:130}
-  ]
+  "Hair Services": [{name:"Wash with Blow Dry (S)", price:110},{name:"Wash with Blow Dry (M)", price:130},{name:"Wash with Blow Dry (L)", price:160},{name:"Wash with Blow Dry (XL)", price:200},{name:"Wash with Blow Dry (XXL)", price:240},{name:"Wash with Paddle Dry (S)", price:190},{name:"Wash with Paddle Dry (M)", price:160},{name:"Wash with Paddle Dry (L)", price:180},{name:"Wash with Paddle Dry (XL)", price:220},{name:"Wash with Paddle Dry (XXL)", price:290},{name:"Blowdry with Extension (S)", price:130},{name:"Blowdry with Extension (M)", price:200},{name:"Blowdry with Extension (L)", price:270},{name:"Blowdry with Extension (XL)", price:220},{name:"Restyle with Blowdry (S)", price:110},{name:"Restyle with Blowdry (M)", price:65},{name:"Restyle with Blowdry (L)", price:85},{name:"Restyle with Blowdry (XL)", price:75},{name:"Trim with Blowdry (S)", price:50},{name:"Trim with Blowdry (M)", price:160},{name:"Trim with Blowdry (L)", price:240},{name:"Trim with Blowdry (XL)", price:200},{name:"Trim without Blowdry (S)", price:55},{name:"Trim without Blowdry (M)", price:140},{name:"Trim without Blowdry (L)", price:210},{name:"Trim without Blowdry (XL)", price:170},{name:"Fringe Cut", price:130},{name:"Ironing / Curling", price:160},{name:"Upstyle", price:200}],
+  "Hair Color": [{name:"Roots Color (S)", price:200},{name:"Roots Color (M)", price:520},{name:"Roots Color (L)", price:620},{name:"Roots Color (XL)", price:720},{name:"Roots Color (XXL)", price:820},{name:"Organic Roots Color (S)", price:230},{name:"Organic Roots Color (M)", price:550},{name:"Organic Roots Color (L)", price:650},{name:"Organic Roots Color (XL)", price:750},{name:"Organic Roots Color (XXL)", price:850},{name:"Crazy Color Ombre (S)", price:420},{name:"Crazy Color Ombre (M)", price:400},{name:"Crazy Color Ombre (L)", price:500},{name:"Crazy Color Ombre (XL)", price:600},{name:"Crazy Color Ombre (XXL)", price:700},{name:"Full Head Highlights (S)", price:450},{name:"Full Head Highlights (M)", price:720},{name:"Full Head Highlights (L)", price:820},{name:"Full Head Highlights (XL)", price:920},{name:"Full Head Highlights (XXL)", price:1020},{name:"Full Color (S)", price:300},{name:"Full Color (M)", price:600},{name:"Full Color (L)", price:700},{name:"Full Color (XL)", price:800},{name:"Full Color (XXL)", price:900},{name:"Ombre / Balayage (S)", price:620},{name:"Ombre / Balayage (M)", price:450},{name:"Ombre / Balayage (L)", price:550},{name:"Ombre / Balayage (XL)", price:650},{name:"Ombre / Balayage (XXL)", price:750},{name:"Blonde Highlights", price:500},{name:"Organic Full Color", price:350}],
+  "Nail Extensions": [{name:"Natural Set Gel / Acrylic", price:300},{name:"Natural Overlay Gel / Acrylic", price:280},{name:"Natural Refill Gel / Acrylic", price:230},{name:"Extension Removal", price:100},{name:"Natural Overlay Nail Repair", price:37},{name:"Extension Nail Repair", price:40}],
+  "Manicure & Pedicure": [{name:"Russian Manicure", price:60},{name:"Russian Pedicure", price:70},{name:"Spa Manicure", price:35},{name:"Spa Pedicure", price:35},{name:"Gelish Manicure", price:137},{name:"Gelish Pedicure", price:147},{name:"Classic Manicure", price:74},{name:"Classic Pedicure", price:84},{name:"Russian Gelish Manicure", price:200},{name:"Russian Gelish Pedicure", price:210},{name:"Gelish Polish Hands", price:94},{name:"Gelish Polish Feet", price:104},{name:"Gelish Removal Hands/Feet", price:45},{name:"Ingrown Removal", price:50},{name:"Polish Change Hands", price:140},{name:"Polish Change Feet", price:160}],
+  "Nail Art": [{name:"Classic French", price:80},{name:"Extension French", price:40},{name:"Cat Eye", price:90},{name:"Chrome", price:90},{name:"Ombre", price:90},{name:"Nail Art (per nail)", price:20},{name:"Glitter (per nail)", price:10},{name:"Stones (per nail)", price:10},{name:"Sticker (per nail)", price:10}],
+  "Nail Add‑ons": [{name:"Callus Treatment", price:80},{name:"Scrub Hands", price:60},{name:"Scrub Feet", price:70},{name:"Paraffin Hands", price:90},{name:"Paraffin Feet", price:100},{name:"Cut, Buff & Shine", price:40},{name:"Jelly Spa Hands/Feet", price:60},{name:"Footlogix", price:150}],
+  "Facials": [{name:"Cleanup", price:250},{name:"Cleansing Facial", price:350},{name:"Vitamin C Facial", price:350},{name:"Hydrating Facial", price:350},{name:"Sensitive Skin Facial", price:350},{name:"Fresh Fruit Organic Facial", price:350},{name:"Whitening Facial", price:350},{name:"Classic Hydradermie", price:450},{name:"Hydradermie Lightening", price:450},{name:"Hydradermie Plus", price:450},{name:"Anti Aging Facial", price:450},{name:"Hydradermie Plus & Lift Deluxe", price:500},{name:"BB Glow Facial", price:500}],
+  "Massage & Body Treatments": [{name:"Neck & Shoulder Massage (Chair 30m)", price:105},{name:"Foot Massage (Chair 30m)", price:105},{name:"Neck & Shoulder Massage (Room 30m)", price:120},{name:"Foot Massage (Room 45m)", price:120},{name:"Aroma Therapy Massage (45m)", price:250},{name:"Deep Tissue Massage (30m)", price:250},{name:"Slimming/Cellulite Massage (60m)", price:250},{name:"Thai Massage (Dry 60m)", price:325},{name:"Full Body Scrub (60m)", price:400},{name:"Full Body Wrap (60m)", price:400},{name:"Cupping Therapy (60m)", price:425},{name:"Swedish Massage (30m)", price:400}],
+  "Threading & Lamination": [{name:"Eyebrow Trimming", price:40},{name:"Eyebrow Mousse", price:40},{name:"Upper Lips", price:30},{name:"Forehead Threading", price:30},{name:"Cheek / Chin", price:30},{name:"Sideburn", price:35},{name:"Neck", price:30},{name:"Full Face", price:110},{name:"Brow Lamination", price:250},{name:"Lash Lamination", price:200}],
+  "Eyelashes & Tinting": [{name:"Natural Lashes Full Set", price:400},{name:"Russian Lashes Full Set", price:500},{name:"Natural Lashes Refill (2w)", price:210},{name:"Natural Lashes Refill (3w)", price:310},{name:"Russian Lashes Refill (2w)", price:310},{name:"Russian Lashes Refill (3w)", price:410},{name:"Lash Removal", price:70},{name:"Brow Tinting", price:65},{name:"Lash Tinting", price:65}],
+  "Bleaching": [{name:"Upper/Lower Lip", price:25},{name:"Eyebrows", price:70},{name:"Full Face", price:110},{name:"Full Face with Neck", price:150},{name:"Underarms", price:60},{name:"Forehead/Cheek/Chin", price:30},{name:"Full Arms", price:100},{name:"Half Arms", price:60},{name:"Full Legs", price:120},{name:"Half Lower Legs", price:70},{name:"Half Upper Legs", price:80},{name:"Full Back/Front", price:120},{name:"Half Front/Back", price:70},{name:"Full Body", price:350}],
+  "Waxing": [{name:"Underarms Hard Wax", price:150},{name:"Full Arms", price:360},{name:"Half Arms", price:60},{name:"Full Legs", price:475},{name:"Brazilian Hard Wax", price:60},{name:"Bikini Line Hard Wax", price:80},{name:"Full Body with Bikini Line", price:90},{name:"Full Body with Brazilian", price:105},{name:"Lower Legs", price:70},{name:"Upper Legs", price:80},{name:"Full Back/Front", price:100},{name:"Half Back/Front", price:70},{name:"Eyebrows", price:50},{name:"Upper Lips", price:35},{name:"Nose", price:35},{name:"Forehead", price:35},{name:"Cheek", price:35},{name:"Sideburn", price:40},{name:"Full Face", price:115},{name:"Fingers/Toes", price:20},{name:"Naval", price:20}],
+  "Makeup": [{name:"Eye Makeup", price:200},{name:"Day Makeup", price:325},{name:"Evening Makeup", price:425},{name:"Bridal Makeup", price:1000}],
+  "Kids Services": [{name:"Manicure", price:45},{name:"Pedicure", price:50},{name:"Hair Cut (3–6y)", price:80},{name:"Hair Cut with Blowdry (3–6y)", price:110},{name:"Hair Cut (7–12y)", price:100},{name:"Hair Cut with Blowdry (7–12y)", price:130}]
 };
 
 let selectedServices = [];
+let couponApplied = false;
 
 const bCategory = document.getElementById('bCategory');
 const bService = document.getElementById('bService');
@@ -1640,7 +1563,7 @@ window.addService = function() {
   if (!exists) {
     selectedServices.push({ name, price });
   } else {
-    exists.price = price; // update if re-added
+    exists.price = price;
   }
   updateServiceList();
   bService.selectedIndex = 0;
@@ -1654,21 +1577,18 @@ function updateServiceList() {
   if (selectedServices.length === 0) {
     container.innerHTML = '<p style="font-size:0.75rem;color:var(--text-muted);text-align:center">No services added yet.</p>';
     totalDiv.textContent = '';
+    updateDiscountDisplay(0);
     return;
   }
   let html = '';
   let total = 0;
   selectedServices.forEach((s, idx) => {
-    html += `<div class="service-item">
-      <span>✓ ${s.name}</span>
-      <span style="display:flex;align-items:center">AED ${s.price}
-        <button class="remove-btn" onclick="removeService(${idx})">✕</button>
-      </span>
-    </div>`;
+    html += `<div class="service-item"><span>✓ ${s.name}</span><span>AED ${s.price} <button class="remove-btn" onclick="removeService(${idx})">✕</button></span></div>`;
     total += s.price;
   });
   container.innerHTML = html;
-  totalDiv.textContent = `Total: AED ${total}`;
+  totalDiv.textContent = `Subtotal: AED ${total}`;
+  updateDiscountDisplay(total);
 }
 
 window.removeService = function(index) {
@@ -1676,65 +1596,156 @@ window.removeService = function(index) {
   updateServiceList();
 };
 
+function updateDiscountDisplay(subtotal) {
+  const breakdown = document.getElementById('discountBreakdown');
+  const origTotalEl = document.getElementById('origTotal');
+  const discountAmtEl = document.getElementById('discountAmount');
+  const finalTotalEl = document.getElementById('finalTotal');
+  if (!couponApplied && !userMembership) {
+    breakdown.style.display = 'none';
+    return;
+  }
+  let discount = 0;
+  let discountLabel = '';
+  if (couponApplied && !userMembership) {
+    discount = subtotal * 0.2;
+    discountLabel = '20% Coupon';
+  } else if (userMembership) {
+    discount = subtotal * (userMembership.discountPercent / 100);
+    discountLabel = `${userMembership.discountPercent}% Member Discount`;
+  }
+  const final = subtotal - discount;
+  breakdown.style.display = 'block';
+  origTotalEl.textContent = `AED ${subtotal}`;
+  discountAmtEl.textContent = `-AED ${discount} (${discountLabel})`;
+  finalTotalEl.textContent = `AED ${final}`;
+}
+
+window.applyCoupon = function() {
+  const code = document.getElementById('couponInput').value.trim();
+  const msg = document.getElementById('couponMsg');
+  if (code === 'NEWTONOOREA') {
+    if (userMembership) {
+      msg.style.display='block'; msg.textContent='Coupon is for first-time clients only. Your Glam Pass discount applies.';
+      couponApplied = false;
+    } else {
+      couponApplied = true;
+      msg.style.display='block'; msg.textContent='🎉 Congratulations! You received 20% OFF with code NEWTONOOREA.';
+    }
+  } else {
+    msg.style.display='block'; msg.textContent='Invalid coupon code.';
+    couponApplied = false;
+  }
+  let subtotal = selectedServices.reduce((acc,s)=>acc+s.price,0);
+  updateDiscountDisplay(subtotal);
+};
+
+// MEMBERSHIP
+let userMembership = JSON.parse(localStorage.getItem('noorea_membership') || 'null');
+if(userMembership) updateMembershipUI();
+
+function purchasePlan(planName, price, discountPercent, servicesCount) {
+  const expiry = new Date();
+  expiry.setMonth(expiry.getMonth() + 1);
+  userMembership = {
+    plan: planName,
+    price: price,
+    discountPercent: discountPercent,
+    servicesRemaining: servicesCount,
+    expiry: expiry.toISOString(),
+    savings: 0
+  };
+  localStorage.setItem('noorea_membership', JSON.stringify(userMembership));
+  updateMembershipUI();
+  alert(`Congratulations! You are now a ${planName} Glam Pass member.`);
+}
+
+function cancelMembership() {
+  if(confirm('Cancel your membership? You will lose all benefits.')) {
+    localStorage.removeItem('noorea_membership');
+    userMembership = null;
+    updateMembershipUI();
+  }
+}
+
+function updateMembershipUI() {
+  const plans = document.getElementById('glamPlans');
+  const dashboard = document.getElementById('glamDashboard');
+  if (userMembership) {
+    plans.style.display = 'none';
+    dashboard.style.display = 'block';
+    document.getElementById('memberPlanName').textContent = userMembership.plan;
+    document.getElementById('memberPlanType').textContent = 'Monthly';
+    document.getElementById('memberExpiry').textContent = 'Expires ' + new Date(userMembership.expiry).toLocaleDateString();
+    document.getElementById('memberBenefitsLeft').textContent = userMembership.plan==='Prestige' ? 'Unlimited' : `${userMembership.servicesRemaining} services`;
+    document.getElementById('memberSavings').textContent = `Savings earned: AED ${userMembership.savings}`;
+  } else {
+    plans.style.display = '';
+    dashboard.style.display = 'none';
+    couponApplied = false;
+    document.getElementById('couponInput').value = '';
+    document.getElementById('couponMsg').style.display = 'none';
+  }
+  updateServiceList(); // re-calc discounts
+}
+
+// Booking submit
 window.submitBooking = function() {
   const name = document.getElementById('bName').value;
   const phone = document.getElementById('bPhone').value;
   const date = document.getElementById('bDate').value;
   if (!name || !phone || !date || !selectedTime || selectedServices.length === 0) {
     const msg = document.getElementById('bookingMsg');
-    msg.style.display = 'block';
-    msg.style.borderColor = 'rgba(220,80,80,0.5)';
-    msg.style.color = 'rgba(180,50,50,0.9)';
+    msg.style.display = 'block'; msg.style.borderColor = 'rgba(220,80,80,0.5)'; msg.style.color = 'rgba(180,50,50,0.9)';
     msg.textContent = 'Please fill all fields, select a time, and add at least one service.';
     return;
   }
-  const serviceNames = selectedServices.map(s => s.name).join(', ');
-  const total = selectedServices.reduce((acc, s) => acc + s.price, 0);
+  let subtotal = selectedServices.reduce((acc,s)=>acc+s.price,0);
+  let discount = 0;
+  if (couponApplied && !userMembership) discount = subtotal * 0.2;
+  else if (userMembership) discount = subtotal * (userMembership.discountPercent/100);
+  const final = subtotal - discount;
+  const serviceNames = selectedServices.map(s=>s.name).join(', ');
   const msg = document.getElementById('bookingMsg');
-  msg.style.display = 'block';
-  msg.style.borderColor = 'var(--gold)';
-  msg.style.color = 'var(--gold)';
-  msg.textContent = `✓ Thank you ${name}! Your booking for ${serviceNames} (Total AED ${total}) on ${date} at ${selectedTime} is confirmed. We will contact you shortly.`;
-  const text = `Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AServices: ${encodeURIComponent(serviceNames)}%0ATotal: AED ${total}%0ADate: ${date}%0ATime: ${selectedTime}%0APhone: ${encodeURIComponent(phone)}`;
-  setTimeout(()=>window.open(`https://wa.me/971XXXXXXXXX?text=${text}`,'_blank'),1500);
+  msg.style.display = 'block'; msg.style.borderColor = 'var(--gold)'; msg.style.color = 'var(--gold)';
+  msg.textContent = `✓ Thank you ${name}! Booking for ${serviceNames}. Total AED ${final}. Date ${date} at ${selectedTime}. We'll confirm shortly.`;
+  const text = `Hello NOOREA! Booking: Name ${name}, Services: ${serviceNames}, Total AED ${final}, Date ${date}, Time ${selectedTime}, Phone ${phone}`;
+  setTimeout(()=>window.open(`https://wa.me/971XXXXXXXXX?text=${encodeURIComponent(text)}`,'_blank'),1500);
 };
 
 window.whatsappBook = function(e) {
   e.preventDefault();
   const name = document.getElementById('bName').value || 'Guest';
   const date = document.getElementById('bDate').value || 'TBD';
-  const serviceNames = selectedServices.length ? selectedServices.map(s => s.name).join(', ') : 'General Enquiry';
-  const total = selectedServices.reduce((acc, s) => acc + s.price, 0);
-  const text = `Hello NOOREA! I would like to book:%0A%0AName: ${encodeURIComponent(name)}%0AServices: ${encodeURIComponent(serviceNames)}%0ATotal: AED ${total}%0ADate: ${date}%0ATime: ${selectedTime||'Flexible'}`;
-  window.open(`https://wa.me/971XXXXXXXXX?text=${text}`,'_blank');
+  const serviceNames = selectedServices.length ? selectedServices.map(s=>s.name).join(', ') : 'General Enquiry';
+  let subtotal = selectedServices.reduce((acc,s)=>acc+s.price,0);
+  let discount = 0;
+  if (couponApplied && !userMembership) discount = subtotal * 0.2;
+  else if (userMembership) discount = subtotal * (userMembership.discountPercent/100);
+  const final = subtotal - discount;
+  const text = `Hello NOOREA! Booking: Name ${name}, Services: ${serviceNames}, Total AED ${final}, Date ${date}, Time ${selectedTime||'Flexible'}`;
+  window.open(`https://wa.me/971XXXXXXXXX?text=${encodeURIComponent(text)}`,'_blank');
 };
 
-// Modal functions
-window.openModal = function(id) {
-  document.getElementById(id).classList.add('open');
-};
-window.closeModal = function(id) {
-  document.getElementById(id).classList.remove('open');
-};
-window.addEventListener('click', function(e) {
-  if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open');
+// Modals
+window.openModal = function(id) { document.getElementById(id).classList.add('open'); };
+window.closeModal = function(id) { document.getElementById(id).classList.remove('open'); };
+window.addEventListener('click', function(e) { if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('open'); });
+
+// Exit intent popup
+let exitPopupShown = false;
+document.addEventListener('mouseleave', function(e) {
+  if (e.clientY <= 0 && !exitPopupShown) {
+    exitPopupShown = true;
+    document.getElementById('exitPopup').classList.add('open');
+  }
 });
 
-window.addEventListener('scroll',()=>{
-  const scrollY=window.scrollY;
-  const heroBg=document.querySelector('.hero-bg');
-  if(heroBg)heroBg.style.transform=`translateY(${scrollY*0.3}px)`;
-});
-
-document.querySelectorAll('.plan-cta').forEach(btn=>btn.style.cursor='none');
-
-// Accordion: close others on open
+// Accordion close others
 document.querySelectorAll('.price-category').forEach(detail=>{
   detail.addEventListener('toggle',function(){
     if(this.open){
-      document.querySelectorAll('.price-category').forEach(other=>{
-        if(other!==this)other.open=false;
-      });
+      document.querySelectorAll('.price-category').forEach(other=>{if(other!==this)other.open=false});
     }
   });
 });
